@@ -15,7 +15,7 @@
     },
     methods: {
       testClick(){
-        this.test = '12345678'
+        this.test = '12345678910'
       }
     }
   }
