@@ -4,7 +4,10 @@ import bus from '../utils/bus'
 import rules from '../utils/rules'
 import directives from '../directives'
 
-import '../assets/less/index.less'
+import '../utils/open' // 导出
+import '../assets/less/index.less' // 样式
+
+import printPlugin from './glPrint/printPlugin'
 
 // 全局组件
 // import './glDialog'
@@ -22,6 +25,10 @@ const getComponents = modulesFiles => {
 }
 
 const components = getComponents(require.context('./', true, /.vue$/))
+
+const plugins = [
+  printPlugin
+]
 
 const setPrototype = (Vue) => {
   Vue.prototype.$bus = bus
@@ -45,6 +52,7 @@ const install = function (Vue) {
     ele: version
   }
   components.filter(v => typeof v !== 'function').forEach(v => Vue.component(v.name, v))
+  plugins.forEach(v => Vue.use(v))
   setPrototype(Vue)
   setDirective(Vue)
 }

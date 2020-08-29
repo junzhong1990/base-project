@@ -2,7 +2,7 @@
  * @desc 对于后端返回字节流的导出
  * @remak 注意：需要添加responseType: 'blob'，否则下载文件不成功
 */
-window.sOpen = (resBlob, fileName, target = '', fileType = '.xls') => {
+window.glOpen = (resBlob, fileName, target = '', fileType = '.xls') => {
   var blob = new Blob([resBlob])
   if (window.navigator && window.navigator.msSaveOrOpenBlob) {
     // 兼容IE
