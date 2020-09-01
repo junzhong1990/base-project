@@ -17,7 +17,7 @@
     name: 'glSelect',
     props: {
       value: {
-        type: [String, Number]
+        type: [String, Number, Array]
       },
       options: {
         type: Array,
