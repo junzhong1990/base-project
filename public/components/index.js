@@ -38,8 +38,6 @@ const setPrototype = (Vue) => {
     s[key] = filters[key]
     return s
   }, {})
-
-  Vue.prototype.$ELEMENT = { version }
 }
 
 const setDirective = (Vue) => {

@@ -9,6 +9,7 @@
 </template>
 <script>
 export default {
+  name: 'glPageHeader',
   props: {
     title: {
       type: String,

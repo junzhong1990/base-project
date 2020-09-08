@@ -1,5 +1,5 @@
 <template>
-  <div class="gl-detail-list">
+  <div class="gl-info-list">
     <div class="base-info" v-if="col === '2'">
       <ul class="info-list list-left">
         <template v-for="(item, index) in list">
@@ -49,21 +49,21 @@
       }
     },
     data() {
+      const setContent = (item) => {
+        if (item.format) {
+          // 兼容 数组值， 多选框
+          if (Array.isArray(item.value)) {
+            return item.value.map(v => item.format(v)).join(',')
+          }
+          return item.format(item.value)
+        } else if (item.render) {
+          return <Render render={item.render} data={item} />
+        } else {
+          return item.value
+        }
+      }
       return {
         contentItem: (h, item) => {
-          const setContent = (item) => {
-            if (item.format) {
-              // 兼容 数组值， 多选框
-              if (Array.isArray(item.value)) {
-                return item.value.map(v => item.format(v)).join(',')
-              }
-              return item.format(item.value)
-            } else if (item.render) {
-              return <Render render={item.render} data={item} />
-            } else {
-              return item.value
-            }
-          }
           return (
             <div class="list-item">
               <div class="title">{item.label}</div>
@@ -76,7 +76,7 @@
   }
 </script>
 <style lang="less" scoped>
-  .gl-detail-list{
+  .gl-info-list{
     margin-bottom: 20px;
     .base-info{
       display: flex;
