@@ -39,7 +39,7 @@ const setPrototype = (Vue) => {
     return s
   }, {})
 
-  Object.assign(Vue.prototype.$ELEMENT, { version })
+  Vue.prototype.$ELEMENT = { version }
 }
 
 const setDirective = (Vue) => {
