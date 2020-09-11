@@ -5,7 +5,7 @@ import rules from '../utils/rules'
 import directives from '../directives'
 
 import '../utils/open' // 导出
-import '../assets/less/index.less' // 样式
+// import '../assets/less/index.less' // 样式
 
 import printPlugin from './glPrint/printPlugin'
 
