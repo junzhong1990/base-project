@@ -1,7 +1,7 @@
 <template>
   <div class="gl-page-header">
     <span class="ptitle">{{title}}</span>
-    <span class="back-btn" @click="goBack">
+    <span class="back-btn" @click="goBack" v-if="gobackShow">
       <img :src="gobackimg" />
       <span class="ptxt">{{gobackText}}</span>
     </span>
@@ -22,6 +22,10 @@ export default {
     gobackimg: {
       type: String,
       default: require('../../assets/image/goback.png')
+    },
+    gobackShow: {
+      type: Boolean,
+      default: true
     }
   },
   methods: {
