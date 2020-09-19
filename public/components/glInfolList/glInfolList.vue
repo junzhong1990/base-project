@@ -66,8 +66,8 @@
         contentItem: (h, item) => {
           return (
             <div class="list-item">
-              <div class="title">{item.label}</div>
-              <div class="content">{setContent(item)}</div>
+              <div class="t-title">{item.label}</div>
+              <div class="t-content">{setContent(item)}</div>
             </div>
           )
         }
@@ -103,7 +103,7 @@
       .list-item{
         display: flex;
       }
-      .title{
+      .t-title{
         box-sizing: border-box;
         width: 150px;
         padding: 10px 0;
@@ -111,7 +111,7 @@
         border-right: 1px solid #dddee1;
         background-color: #f8f8f9;
       }
-      .content{
+      .t-content{
         flex: 1;
         padding: 10px 5px;
         word-break: break-all;
