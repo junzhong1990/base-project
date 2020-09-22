@@ -1,0 +1,204 @@
+// entry
+.entry-container{
+  min-height: 100%;
+  background-color: #F3F6FC;
+  .entry-hd{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0 20px;
+    height: 64px;
+    line-height: 64px;
+    color: #fff;
+    text-align: left;
+    z-index: 2;
+    background-color: #001D41;
+  }
+  .hd-logo{
+    height: 100%;
+    font-size: 18px;
+    .ct{
+      display: inline-block;
+      height: 100%;
+      cursor: pointer;
+    }
+    .logo-box{
+      background-color: #fff;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: inline-block;
+      vertical-align: middle;
+      text-align: center;
+      margin-right: 8px;
+      line-height: 36px;
+    }
+    .iconfont{
+      color: #E60012;
+      font-size: 28px;
+    }
+  }
+  .user-admin{
+    top: 0;
+    color: #fff;
+    .avatar{
+      vertical-align: middle;
+    }
+    .opr-icon{
+      color: #fff;
+      cursor: pointer;
+    }
+    .fs-dropdown{
+      display: none;
+    }
+  }
+  .entry-bd{
+    text-align: center;
+    .entry-list{
+      width: 1230px;
+      margin: 40px auto 10px;
+      overflow: hidden;
+      padding-top: 64px;
+      li{
+        float: left;
+        width: 380px;
+        height: 160px;
+        line-height: 100px;
+        margin: 0 15px 30px;
+        padding: 30px 40px;
+        border-radius: 4px;
+        overflow: hidden;
+        font-size: 20px;
+        cursor: pointer;
+        background-color: #fff;
+        &:hover{
+          box-shadow:0px 0px 6px 0px rgba(0,29,65,0.2);
+        }
+        dt.icon-yewuguanli{
+          background-color: #42c3af;
+        }
+        dt.icon-yewuyunying{
+          background-color: #f8a53c;
+        }
+        dt.icon-yewujiankong{
+          background-color: #49c8f3;
+        }
+        dt.icon-xitongguanli{
+          background-color: #f6615a;
+        }
+        dt.icon-waibujianguan{
+          background-color: #64d572;
+        }
+      }
+      dl{
+        overflow: hidden;
+        text-align: left;
+      }
+      dt{
+        float: left;
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        margin-right: 40px;
+        border-radius: 50%;
+        color: #fff;
+        background-color: #49c8f3;
+        font-size: 60px;
+        text-align: center;
+      }
+      dd{
+        overflow: hidden;
+        color: #282E43;
+      }
+    }
+    .msg-con{
+      width: 1230px;
+      margin: 0 auto;
+    }
+    .msg-bd{
+      text-align: left;
+      width: 595px;
+      background-color: #fff;
+      border-radius: 4px;
+      color: #666;
+      margin: 0 10px;
+      &:last-child{
+        margin-right: 0;
+      }
+      @red: #F6625A;
+      @orange: #FFA53C;
+      .red{
+        color: @red;
+      }
+      .orange{
+        color: @orange;
+      }
+      .list-dot.dot-red{
+        &:before{
+          background-color: @red;
+        }
+      }
+      .list-dot.dot-orange{
+        &:before{
+          background-color: @orange;
+        }
+      }
+      .heading{
+        font-size: 16px;
+        height: 52px;
+        line-height: 52px;
+        padding: 0 20px;
+        color: #282E43;
+        border-bottom: 1px solid #E4E5EA;
+      }
+      .msg-tips{
+        float: right;
+        color: #6D737A;
+        font-size: 14px;
+        em{
+          font-style: normal;
+          font-weight: bold;
+        }
+        .refresh{
+          cursor: pointer;
+          font-size: 16px;
+        }
+      }
+      .msg-list{
+        padding: 15px 50px;
+        min-height: 162px;
+        li{
+          font-size: 14px;
+          padding: 14px 0;
+          cursor: pointer;
+          position: relative;
+          &:before{
+            content: "";
+            display: inline-block;
+            vertical-align: baseline;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 10px;
+          }
+          p{
+            display: inline;
+            &:hover{
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+      .no-data{
+        min-height: 162px;
+        text-align: center;
+        padding-top: 70px;
+        color: #999;
+      }
+    }
+  }
+}

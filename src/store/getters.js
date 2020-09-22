@@ -1,0 +1,12 @@
+export const loginInfo = state => state.loginInfo
+export const entry = state => state.entry
+export const routerTags = state => state.routerTags
+export const isFull = state => state.isFull
+export const menuData = state => state.menuData
+export const fsMode = state => state.fsMode
+export const dicStore = state => state.dicStore
+export const dssArea = state => state.dssArea
+export const dssMenu = state => state.dssMenu
+export const dssPageParam = state => state.dssPageParam
+export const dssResourceCode = state => state.dssResourceCode
+export const entryList = state => state.entryList

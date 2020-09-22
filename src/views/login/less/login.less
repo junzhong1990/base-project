@@ -1,0 +1,87 @@
+// login
+.login-container {
+  //background-image: url(../../../assets/img/backgroundImage.png);
+  background: url(../../../assets/img/bg.png) no-repeat;
+  background-size: 100% 100%;
+  //background-size: cover;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0px;
+  .mid {
+    width: 800px;
+    height: 560px;
+    //background: rgba(255, 255, 255, 1);
+    border-radius: 20px;
+    background: url(../../../assets/img/loginBg.png) no-repeat;
+    background-size: 100% 100%;
+    .innerBox{
+      width: 678px;
+      height: 500px;
+      padding-left: 323px;
+      padding-top: 140px;
+      .el-form-item--mini.el-form-item{
+        margin-bottom: 23px;
+      }
+    }
+    .form-bd {
+      //padding: 120px 46px 0;
+    }
+    .companyLogo {
+      position: absolute;
+      top: -85px;
+      left: 140px;
+      width: 170px;
+      height: 170px;
+    }
+    .title {
+      width: 359px;
+      margin-bottom: 48px;
+    }
+    .sc-edit-single {
+      .inputAll {
+        margin-bottom: 30px;
+      }
+      /deep/ .el-form-item__content {
+        width: auto;
+      }
+      /deep/ .el-input__inner {
+        height: 40px;
+        border-radius: 4px;
+        margin-bottom: 5px;
+      }
+      .btn {
+        width: 359px;
+        height: 46px;
+        background: rgba(0, 29, 65, 1);
+        border-radius: 6px;
+        font-size: 16px;
+        font-family: MicrosoftYaHei;
+        color: rgba(255, 255, 255, 1);
+        line-height: 16px;
+        margin-bottom: 30px;
+      }
+      .btn:hover{
+        background: rgba(14, 40,103, 1);
+      }
+    }
+  }
+  .loginCopyright {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    width: 100%;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    color: #ffffff;
+    text-align: center;
+    padding: 0 0 30px 0;
+    //background: #000;
+    opacity: .35;
+  }
+}

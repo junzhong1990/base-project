@@ -1,0 +1,3 @@
+[submodule "src/frontend"]
+	path = src/frontend
+	url = git@10.13.0.176:LOMS/ComponentStore/frontend.git
