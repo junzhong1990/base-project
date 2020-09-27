@@ -216,6 +216,37 @@ const getPcRelationArr = (obj, val, pid = 'pid') => {
   return arr
 }
 
+/**
+ * Check if an element has a class
+ * @param {HTMLElement} elm
+ * @param {string} cls
+ * @returns {boolean}
+ */
+const hasClass = (ele, cls) => {
+  return !!ele.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'))
+}
+
+/**
+ * Add class to element
+ * @param {HTMLElement} elm
+ * @param {string} cls
+ */
+const addClass = (ele, cls) => {
+  if (!hasClass(ele, cls)) ele.className += ' ' + cls
+}
+/**
+ * Remove class from element
+ * @param {HTMLElement} elm
+ * @param {string} cls
+ */
+const removeClass = (ele, cls) => {
+  if (hasClass(ele, cls)) {
+    const reg = new RegExp('(\\s|^)' + cls + '(\\s|$)')
+    ele.className = ele.className.replace(reg, ' ')
+  }
+}
+
+
 export default {
   accMul,
   accDiv,
@@ -228,4 +259,6 @@ export default {
   getLabel,
   treeToObj,
   getPcRelationArr,
+  addClass,
+  removeClass
 }

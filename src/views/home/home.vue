@@ -1,6 +1,7 @@
 <template>
   <div class="home-container">
-    <sideMenu></sideMenu>
+    <div v-if="$store.state.device === 'mobile' && $store.state.menuOpen" class="drawer-bg" @click="handleClickOutside" />
+    <sideMenu v-if="$store.state.device == 'desktop' || $store.state.menuOpen" :class="{ openMenu: $store.state.menuOpen }"></sideMenu>
     <div class="right-container">
       <adminHeader></adminHeader>
       <div class="main" id="main" ref="main">
@@ -15,25 +16,35 @@
         </div>
       </div>
     </div>
+    <RightPanel v-if="showSettings">
+      <Settings />
+    </RightPanel>
   </div>
 </template>
 
 <script>
+  import RightPanel from '@/components/common/rightPanel'
   import { keepAlive } from '@/utils/cache'
   import sideMenu from '@/components/main/sideMenu'
   import adminHeader from '@/components/main/adminHeader'
-  import { mapGetters} from 'vuex'
+  import Settings from './settings/index'
+  import { mapGetters, mapMutations } from 'vuex'
+  // import store from '@/store'
   // import collection from './collection'
-
+  // const { body } = document
+  const WIDTH = 992 // refer to Bootstrap's responsive design
   export default {
     name: 'home',
     components: {
       sideMenu,
       adminHeader,
+      RightPanel,
+      Settings
       // collection
     },
     data() {
       return {
+        showSettings: true,
         isFullHeight: false,
         includes: keepAlive.includes,
         setFullHeightRouters: [
@@ -43,7 +54,7 @@
       }
     },
     computed: {
-      ...mapGetters(['fsMode']),
+      ...mapGetters(['fsMode', 'menuShowFlag']),
       // showStatisticsManage() {
       //   return this.$route.path.includes('/statisticsManage')
       // },
@@ -66,6 +77,7 @@
     },
 
     methods: {
+      ...mapMutations(['SET_MENUSHOW', 'SET_MENUOPEN']),
       // 设置路由高度自适应main-body
       setFullHeight(routerNames) {
         if (routerNames.indexOf(this.$route.name) > -1) {
@@ -74,16 +86,31 @@
           this.isFullHeight = false
         }
       },
+      isMobileEvent() {
+        const rect = document.body.getBoundingClientRect()
+        return rect.width - 1 < WIDTH
+      },
       // 窗口变化设置相关区域高度
       resize() {
+        console.log(1212)
+        const isMobile = this.isMobileEvent()
+        this.SET_MENUSHOW(isMobile ? 'mobile' : 'desktop')
+        console.log(isMobile)
+        this.eventBus.$emit('menuCollapse', isMobile)
         try {
           const header = document.querySelector('.header-container')
           const headHeight = header.offsetHeight
           this.$refs.main.style.height = `${document.documentElement.clientHeight - headHeight}px`
         } catch (error) {
+          console.log(33)
           // 未能获取 .header-container
         }
       },
+      handleClickOutside() {
+        // this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
+        console.log(this.$store.state.menuOpen)
+        this.SET_MENUOPEN(false)
+      }
     }
   }
 </script>

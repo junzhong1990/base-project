@@ -4,16 +4,17 @@
     <!-- <router-link class="opr-icon iconfont icon-shouye" tag="span" :to="{name: 'situation'}" v-if="showSituation"></router-link> -->
     <statisticsManageArea v-if="showStatisticsManage" />
     <bookmark v-if="showStatisticsManage" />
-    <span class="opr-icon" @click="jumpTo('homePage')" v-if="showSituation">
+    <span class="opr-icon" @click="jumpTo('homePage')" v-if="showSituation" v-show="$store.state.device == 'desktop'">
       <glSvgIcon iconClass="home" />
     </span>
-    <router-link class="opr-icon icon-tab" tag="span" :to="{name: 'entry'}" v-if="showEntry">
+    <router-link class="opr-icon icon-tab" tag="span" :to="{name: 'entry'}" v-if="showEntry" v-show="$store.state.device == 'desktop'">
       <glSvgIcon iconClass="iconSort" />
     </router-link>
     <!-- 系统设置 -->
     <el-popover
       placement="bottom"
       trigger="hover"
+      v-show="$store.state.device == 'desktop'"
       popper-class="set-popover">
       <span slot="reference" class="opr-icon" @click="jumpTo('system')">
         <glSvgIcon iconClass="setting" style="font-size:20px" />
@@ -23,14 +24,14 @@
         </div>
     </el-popover>
     <!-- 全屏切换 -->
-    <span class="opr-icon" @click="fullScreen(null)" v-if="!isFull">
+    <span class="opr-icon" @click="fullScreen(null)" v-if="!isFull" v-show="$store.state.device == 'desktop'">
       <glSvgIcon iconClass="fullscreen" />
     </span>
-    <span class="opr-icon" @click="exitFullScreen" v-else>
+    <span class="opr-icon" @click="exitFullScreen" v-else v-show="$store.state.device == 'desktop'">
       <glSvgIcon iconClass="exitFullScreen" />
     </span>
     <!-- 锁住按钮 -->
-    <span class="opr-icon" @click="lock">
+    <span class="opr-icon" @click="lock" v-show="$store.state.device == 'desktop'">
       <glSvgIcon iconClass="lock" style="font-size:18px" />
     </span>
     <!-- 通知 -->
@@ -38,7 +39,7 @@
       <!--<glSvgIcon iconClass="ring" />-->
     <!--</span>-->
     <!-- 退出 -->
-    <span class="opr-icon" @click="logoutConfirm">
+    <span class="opr-icon" @click="logoutConfirm" v-show="$store.state.device == 'desktop'">
       <glSvgIcon iconClass="turnoff" />
     </span>
     <span class="el-dropdown-link">

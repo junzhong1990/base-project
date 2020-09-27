@@ -35,7 +35,7 @@ export default {
   },
   mounted() {
     this.init()
-    this.handleCurrentChangeForIE()
+    // this.handleCurrentChangeForIE()
     this.setClass = 'owner-class-' + parseInt(Math.random() * 100000)
   },
   methods: {

@@ -74,4 +74,10 @@ export default {
   [types.SET_ENTRYLIST](state, data) {
     state.entryList = data
   },
+  [types.SET_MENUSHOW](state, data) {
+    state.device = data
+  },
+  [types.SET_MENUOPEN](state, data) {
+    state.menuOpen = data
+  },
 }

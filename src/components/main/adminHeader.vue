@@ -2,7 +2,10 @@
   <div class="header-container">
     <div class="top-bd">
       <!-- <i class="menu-collapse el-icon-s-fold" :class="{isCollapse: isCollapse}" @click="menuCollapse"></i> -->
-      <span class="menu-collapse" :class="{isCollapse: isCollapse}">
+      <span class="menu-collapse" :class="{isCollapse: $store.state.device == 'mobile'}" v-if="$store.state.device == 'mobile'">
+        <glSvgIcon iconClass="menuCollapse" style="font-size:18px" @click="openMenu"/>
+      </span>
+      <span class="menu-collapse" :class="{isCollapse: isCollapse}" v-else>
         <glSvgIcon iconClass="menuCollapse" style="font-size:18px"  @click="menuCollapse" />
       </span>
       <span class="headline">{{title}}</span>
@@ -16,7 +19,7 @@
 import pageTags from './pageTags'
 import adminInfo from './adminInfo'
 import { getNowModel } from '@/utils/userCache'
-// import {mapGetters} from 'vuex'
+import {mapMutations} from 'vuex'
 export default {
   name: 'adminHeader',
   components: {
@@ -36,6 +39,7 @@ export default {
     })
   },
   methods: {
+    ...mapMutations(['SET_MENUOPEN']),
     menuCollapse() {
       const self = this
       if (self.isCollapse) {
@@ -45,6 +49,9 @@ export default {
       }
       self.eventBus.$emit('menuCollapse', true)
       self.isCollapse = true
+    },
+    openMenu() {
+      this.SET_MENUOPEN(true)
     }
   }
 }

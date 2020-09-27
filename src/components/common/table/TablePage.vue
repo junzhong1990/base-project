@@ -110,7 +110,7 @@
       },
       layout: {
         type: String,
-        default: 'total, prev, pager, next, jumper'
+        default: 'total, prev, pager, next'
       }
     },
     mounted() {

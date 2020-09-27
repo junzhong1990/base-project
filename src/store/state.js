@@ -21,6 +21,9 @@ const state = {
   },
   routerTags: storage.session.get('routerTags') || [], // 路由标签列表
   fsMode: { index: 1, className: 'fs-b' }, // storage.get('fsMode') || {index: 1, className: 'fs-m'}, // 网页字体大小 0=>小 1=>中 2=>大
+  menuShowFlag: false, // 菜单隐藏
+  device: 'desktop', // PC端 手机端
+  menuOpen: false, // 菜单打开
   rechargeList: [],
   menuData: null, // 菜单数据
   entryList: [], // 面板数据

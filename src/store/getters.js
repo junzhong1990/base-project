@@ -10,3 +10,4 @@ export const dssMenu = state => state.dssMenu
 export const dssPageParam = state => state.dssPageParam
 export const dssResourceCode = state => state.dssResourceCode
 export const entryList = state => state.entryList
+export const menuShowFlag = state => state.menuShowFlag
