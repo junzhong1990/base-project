@@ -1,4 +1,4 @@
-import variables from '@/assets/less/element-variables.scss'
+import variables from '@/assets/scss/element-variables.scss'
 import defaultSettings from '@/settings'
 
 const { showSettings, tagsView, fixedHeader, sidebarLogo } = defaultSettings
