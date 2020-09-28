@@ -23,6 +23,9 @@ export default {
       return this.$store.state.settings.theme
     }
   },
+  beforeMount() {
+    this.theme = '#567CDB'
+  },
   watch: {
     defaultTheme: {
       handler: function(val, oldVal) {
@@ -85,7 +88,6 @@ export default {
       $message.close()
     }
   },
-
   methods: {
     updateStyle(style, oldCluster, newCluster) {
       let newStyle = style

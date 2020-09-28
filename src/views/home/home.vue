@@ -28,7 +28,7 @@
   import sideMenu from '@/components/main/sideMenu'
   import adminHeader from '@/components/main/adminHeader'
   import Settings from './settings/index'
-  import { mapGetters, mapMutations } from 'vuex'
+  import { mapGetters, mapMutations, mapState } from 'vuex'
   // import store from '@/store'
   // import collection from './collection'
   // const { body } = document
@@ -44,7 +44,6 @@
     },
     data() {
       return {
-        showSettings: true,
         isFullHeight: false,
         includes: keepAlive.includes,
         setFullHeightRouters: [
@@ -55,6 +54,9 @@
     },
     computed: {
       ...mapGetters(['fsMode', 'menuShowFlag']),
+      ...mapState({
+        showSettings: state => state.settings.showSettings,
+      }),
       // showStatisticsManage() {
       //   return this.$route.path.includes('/statisticsManage')
       // },
