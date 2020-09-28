@@ -72,11 +72,21 @@ export default {
   },
   methods: {
     themeChange(val) {
+      console.log(val)
       this.$store.dispatch('settings/changeSetting', {
         key: 'theme',
         value: val
       })
     }
+  },
+  mounted() {
+    console.log(this.$store.state.settings.theme)
+    this.themeChange(this.$store.state.settings.theme)
+    // this.$store.dispatch('settings/changeSetting', {
+    //   key: 'theme',
+    //   value: this.$store.state.settings.theme
+    // })
+    console.log(2323)
   }
 }
 </script>
