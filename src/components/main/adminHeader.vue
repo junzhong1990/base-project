@@ -11,7 +11,7 @@
       <span class="headline">{{title}}</span>
       <admin-info></admin-info>
     </div>
-    <page-tags></page-tags>
+    <page-tags v-if="needTagsView"></page-tags>
   </div>
 </template>
 <script>
@@ -19,12 +19,17 @@
 import pageTags from './pageTags'
 import adminInfo from './adminInfo'
 import { getNowModel } from '@/utils/userCache'
-import {mapMutations} from 'vuex'
+import {mapMutations, mapState} from 'vuex'
 export default {
   name: 'adminHeader',
   components: {
     adminInfo,
     pageTags
+  },
+  computed: {
+    ...mapState({
+      needTagsView: state => state.settings.tagsView,
+    })
   },
   data() {
     return {
@@ -36,6 +41,10 @@ export default {
     this.title = getNowModel().name || '业务管理'
     this.eventBus.$on('refreshHeaderTitle', v => {
       this.title = v.name || '业务管理'
+    })
+    this.eventBus.$on('desktopMenu', () => {
+      this.eventBus.$emit('menuCollapse', false)
+      this.isCollapse = false
     })
   },
   methods: {

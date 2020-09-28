@@ -94,17 +94,18 @@
       },
       // 窗口变化设置相关区域高度
       resize() {
-        console.log(1212)
         const isMobile = this.isMobileEvent()
         this.SET_MENUSHOW(isMobile ? 'mobile' : 'desktop')
         console.log(isMobile)
         this.eventBus.$emit('menuCollapse', isMobile)
+        if (!isMobile) {
+          this.eventBus.$emit('desktopMenu')
+        }
         try {
           const header = document.querySelector('.header-container')
           const headHeight = header.offsetHeight
           this.$refs.main.style.height = `${document.documentElement.clientHeight - headHeight}px`
         } catch (error) {
-          console.log(33)
           // 未能获取 .header-container
         }
       },

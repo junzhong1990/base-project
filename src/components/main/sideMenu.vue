@@ -3,7 +3,7 @@
     <el-row class="tac">
       <el-col class="menu-group">
         <el-menu ref="elMenu" :default-active="$route.query.faFlag || $route.query.activeName || $route.meta.parentName || $route.name" @open="handleOpen" @close="handleClose" :collapse="isCollapse" :unique-opened="true">
-          <li class="menu-logo" @click="jumpTo('homePage')">
+          <li class="menu-logo" @click="jumpTo('homePage')" v-if="showLogo">
             <span class="ct">
               <span :class="['logo-box',isCollapse ? 'iscoll' : '']">
                 <glSvgIcon iconClass="logo" style="font-size: 36px" />
@@ -11,7 +11,7 @@
               <span class="name">{{sysName}}</span>
             </span>
           </li>
-          <li class="menu-wrapper">
+          <li class="menu-wrapper" :style="{ top: (!showLogo ? 0 : 60) + 'px' }">
             <menu-tree :menuData="menuList"></menu-tree>
             <menu-tree v-if="showStatisticsManage" :menuData="dssMenu"></menu-tree>
           </li>
@@ -43,6 +43,9 @@ export default {
     ...mapGetters(['entry', 'routerTags', 'menuData', 'dssMenu', 'entryList']),
     showStatisticsManage() {
       return this.$route.path.includes('/statisticsManage')
+    },
+    showLogo() {
+      return this.$store.state.settings.sidebarLogo
     }
   },
   created() {

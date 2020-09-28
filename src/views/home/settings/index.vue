@@ -18,10 +18,10 @@
         <!--<el-switch v-model="fixedHeader" class="drawer-switch" />-->
       <!--</div>-->
 
-      <!--<div class="drawer-item">-->
-        <!--<span>菜单头部LOGO</span>-->
-        <!--<el-switch v-model="sidebarLogo" class="drawer-switch" />-->
-      <!--</div>-->
+      <div class="drawer-item">
+        <span>菜单头部LOGO</span>
+        <el-switch v-model="sidebarLogo" class="drawer-switch" />
+      </div>
 
     </div>
   </div>
