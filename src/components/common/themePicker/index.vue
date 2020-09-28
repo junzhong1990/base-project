@@ -24,7 +24,8 @@ export default {
     }
   },
   beforeMount() {
-    this.theme = '#567CDB'
+    this.firstColor(this.$store.state.settings.theme)
+    // this.theme = '#567CDB'
   },
   watch: {
     defaultTheme: {
@@ -34,6 +35,11 @@ export default {
       immediate: true
     },
     async theme(val) {
+      this.firstColor(val)
+    }
+  },
+  methods: {
+    async firstColor(val) {
       const oldVal = this.chalk ? this.theme : ORIGINAL_THEME
       if (typeof val !== 'string') return
       const themeCluster = this.getThemeCluster(val.replace('#', ''))
@@ -86,9 +92,7 @@ export default {
       this.$emit('change', val)
 
       $message.close()
-    }
-  },
-  methods: {
+    },
     updateStyle(style, oldCluster, newCluster) {
       let newStyle = style
       oldCluster.forEach((color, index) => {
