@@ -1,6 +1,6 @@
 /**
  * @desc 前端定义数据枚举
-*/
+ */
 const autoList = [
   {
     name: 'sex',
@@ -8,8 +8,8 @@ const autoList = [
     data: [
       { label: '男', value: 0 },
       { label: '女', value: 1 },
-      { label: '保密', value: 2 },
-    ],
+      { label: '保密', value: 2 }
+    ]
   },
   {
     name: 'sysUserType',
@@ -18,8 +18,8 @@ const autoList = [
       { label: '中心用户', value: 2 },
       { label: '分中心用户', value: 3 },
       { label: '区域经理', value: 4 },
-      { label: '业主', value: 5 },
-    ],
+      { label: '业主', value: 5 }
+    ]
   },
   {
     name: 'education',
@@ -34,8 +34,8 @@ const autoList = [
       { label: '本科', value: 7 },
       { label: '硕士', value: 8 },
       { label: '博士', value: 9 },
-      { label: '其他', value: 10 },
-    ],
+      { label: '其他', value: 10 }
+    ]
   },
   {
     name: 'formType',
@@ -47,6 +47,8 @@ const autoList = [
       { label: '日期选择', value: 'date' },
       { label: '日期范围', value: 'daterange' },
       { label: '时间选择', value: 'datetime' },
+      { label: '日期范围-选择到今天', value: 'daterangeTimePass' },
+      { label: '日期范围-选择从今天起', value: 'daterangeTimeFuture' },
       { label: '时间范围', value: 'datetimerange' },
       { label: '复选框', value: 'checkbox' },
       { label: '单选框', value: 'radio' },
@@ -56,35 +58,42 @@ const autoList = [
       { label: '附件上传', value: 'upload' },
       { label: '双下拉选择框', value: 'selectTwo' },
       { label: '双输入框', value: 'inputTwo' },
-      { label: '站点原址转让联动框', value: 'stationTransfer' },
+      { label: '网点原址转让联动框', value: 'stationTransfer' },
       { label: '游戏类型游戏期号联动框', value: 'gameTypeIssueNum' },
       { label: '游戏权限列表', value: 'gamePermissions' },
       { label: '游戏兑奖金额权限业务-原权限', value: 'gameCashItem' },
-
       { label: '双输入框经纬度', value: 'inputTwoLngLat' },
-      { label: '加载站点', value: 'loadStation' },
-      { label: '加载最近站点', value: 'loadNearestStation' },
-      { label: '加载停机站点', value: 'loadStopStation' },
-      { label: '新增站点渠道选择', value: 'newStationAgent' },
-      { label: '新增站点区域,区域经理', value: 'areaAdmin' },
-
-      { label: '站点销售费率', value: 'loadStationRate' },
-      { label: '站点销售权限', value: 'stationRight' },
+      { label: '加载网点', value: 'loadStation' },
+      { label: '加载最近网点', value: 'loadNearestStation' },
+      { label: '加载停机网点', value: 'loadStopStation' },
+      { label: '加载即开票网点', value: 'loadJKPStation' },
+      { label: '新增网点渠道选择', value: 'newStationAgent' },
+      { label: '新增网点区域,区域经理', value: 'areaAdmin' },
+      { label: '网点销售费率', value: 'loadStationRate' },
+      { label: '网点销售权限', value: 'stationRight' },
+      { label: '设备类型与型号联动', value: 'matTypeModelDevice' },
       { label: '中奖彩票明细', value: 'winDetail' },
-      // {label: '建站物品列表', value: 'newStationGoods'},
       { label: '建站物品列表', value: 'newStationGoodsList' },
       { label: '建站代销费率表', value: 'newStationRate' },
       { label: '建站设备列表', value: 'newStationDevice' },
-      //   仓储流程相关
+      { label: '网点标签', value: 'stationLabels' },
+      { label: '审批操作', value: 'approvalOpreate' },
+      // 站点停开机-停开机方式
+      { label: '停开机方式选择', value: 'bootTypeList' },
+      // 网点撤销终端-撤销投注设备
+      { label: '撤销投注设备', value: 'revokeTerminalList' },
+      // 网点新增终端-网点撤销终端
+      { label: '终端设备列表', value: 'terminalDeviceList' },
+      // 仓储流程相关
       { label: '仓储采购入库物品列表', value: 'storeGoodsList' },
       { label: '仓储报损物品列表', value: 'storeDamageGoodsList' },
       { label: '仓储调拨物品列表', value: 'storeAllocationGoodsList' },
-      //   培训流程相关
+      // 培训流程相关
       { label: '培训课程课件上传', value: 'trainUpload' },
       { label: '培训课程题目选择', value: 'trainCourseSelect' },
-      //   营销流程相关
+      // 营销流程相关
       { label: '活动区域', value: 'areaCheckbox' },
-      //   统计分析相关
+      //  统计分析相关
       { label: '快速设置时间', value: 'dateRangeFast' },
       { label: '年份选择', value: 'year' },
       { label: '月份选择', value: 'month' },
@@ -98,8 +107,8 @@ const autoList = [
       { label: '统计分析起止框', value: 'inputRange' },
       { label: '统计分析联动双下拉框', value: 'DoubleSelect' },
       { label: '统计分析单框模糊搜索', value: 'oneInputSearch' },
-
-    ],
+      { label: '统计分析双框模糊搜索', value: 'twoInputSearch' },
+    ]
   },
   {
     name: 'validatorNameList',
@@ -116,7 +125,8 @@ const autoList = [
       { label: '数字', value: 'numberVal2' },
       { label: '名称--中英文', value: 'checkPeopleName' },
       { label: '手机号与座机号', value: 'checkPhoneAndMobile' },
-    ],
+      { label: '邮政编码', value: 'checkPostalCode' }
+    ]
   },
   {
     name: 'userType',
@@ -126,21 +136,21 @@ const autoList = [
       { label: '巡查员', value: 2 },
       { label: '业主', value: 3 },
       { label: '销售员', value: 4 },
-    ],
+    ]
   },
   {
     name: 'departmentLevel',
     data: [
       { label: '职员', value: '0' },
-      { label: '领导', value: '1' },
-    ],
+      { label: '领导', value: '1' }
+    ]
   },
   {
     name: 'regionLevel',
     data: [
       { label: '普通人员', value: '0' },
-      { label: '负责人', value: '1' },
-    ],
+      { label: '负责人', value: '1' }
+    ]
   },
   {
     name: 'autResourcesType',
@@ -152,44 +162,44 @@ const autoList = [
       { label: '模块', value: 3 },
       { label: '页签', value: 4 },
       { label: 'url', value: 5 },
-    ],
+    ]
   },
   {
     name: 'autUriList',
     data: [
       {
         label: '请求后台',
-        value: 0,
+        value: 0
       },
       {
         label: '页面跳转',
-        value: 1,
-      },
-    ],
+        value: 1
+      }
+    ]
   },
   {
     name: 'advList',
     data: [
       {
         label: '否',
-        value: 'no',
+        value: 'no'
       },
       {
         label: '是',
-        value: 'yes',
-      },
-    ],
+        value: 'yes'
+      }
+    ]
   },
   {
     name: 'commonSenseTypeList',
     data: [
       {
         label: '玩法介绍',
-        value: 'playIndroduction',
+        value: 'playIndroduction'
       },
       {
         label: '游戏介绍',
-        value: 'gameIndroduction',
+        value: 'gameIndroduction'
       },
       {
         label: '兑奖指南',
@@ -203,7 +213,7 @@ const autoList = [
         label: '新闻资讯',
         value: 'news',
       },
-    ],
+    ]
   },
   {
     name: 'autSystemType',
@@ -211,13 +221,13 @@ const autoList = [
     data: [
       {
         label: '普通',
-        value: 1,
+        value: 1
       },
       {
         label: '内置',
-        value: 0,
+        value: 0
       },
-    ],
+    ]
   },
   {
     name: 'questionType',
@@ -225,13 +235,13 @@ const autoList = [
     data: [
       {
         label: '单选题',
-        value: 'radio',
+        value: 'radio'
       },
       {
         label: '多选题',
-        value: 'checkbox',
+        value: 'checkbox'
       },
-    ],
+    ]
   },
   {
     name: 'autDataAuthType',
@@ -239,66 +249,30 @@ const autoList = [
     data: [
       {
         label: '自定义',
-        value: 1,
+        value: 1
       },
       {
         label: '默认',
-        value: 0,
+        value: 0
       },
-    ],
+    ]
   },
   {
     name: 'dataDicStatus',
     description: '数据字典停启用',
     data: [
       { label: '启用', value: 1 },
-      { label: '停用', value: 0 },
-    ],
+      { label: '停用', value: 0 }
+    ]
   },
   {
     name: 'dataDicType',
     description: '数据字典停允许删除',
     data: [
       { label: '是', value: 1 },
-      { label: '否', value: 0 },
-    ],
-  },
-  {
-    name: 'institutionType',
-    description: '机构管理-机构类别',
-    data: [
-      {
-        label: '部门',
-        value: 0,
-      },
-      {
-        label: '内部机构',
-        value: 1,
-      },
-      {
-        label: '外部机构',
-        value: 2,
-      },
-    ],
-  },
-  {
-    name: 'barType',
-    description: '条码格式',
-    data: [
-      {
-        label: '无条码',
-        value: 'nonebar',
-      },
-      {
-        label: '商品码',
-        value: 'goodsbar',
-      },
-      {
-        label: '序列码',
-        value: 'seqbar',
-      },
-    ],
-  },
+      { label: '否', value: 0 }
+    ]
+  }
 ]
 
 /**
@@ -309,6 +283,7 @@ const staticDic = autoList.reduce((o, cur) => {
   return o
 }, {})
 
+
 export default {
   // 获取下拉列表方法
   getList: (item) => {
@@ -317,7 +292,7 @@ export default {
   // 根据值获取label显示展示
   getData: (item, val) => {
     /* eslint-disable */
-    const obj = (staticDic[item] || []).find(v => v.value == val)
+    let obj = (staticDic[item] || []).find(v => v.value == val)
     return obj ? obj.label : val
-  },
+  }
 }

@@ -1,20 +1,17 @@
 <template>
-<!--转让流程专用
-第一个是下拉框，下拉框如果是 no 的话出现必须选择框
-是否原址转让字段，如果是否的话出现转让后地址这个必选input框,
+  <!--转让流程专用
+    第一个是下拉框，下拉框如果是 no 的话出现必须选择框
+    是否原址转让字段，如果是否的话出现转让后地址这个必选input框,
 
-站点原址转让联动框：
-选择这个表单的时候 类型编码 需要填两个值:stationTransfer,address，
-类型名称也要填两个:是否原址转让,转让后地址
--->
-
-  <div class="">
-
-
+    站点原址转让联动框：
+    选择这个表单的时候 类型编码 需要填两个值:stationTransfer,address，
+    类型名称也要填两个:是否原址转让,转让后地址
+      -->
+  <div>
     <el-form-item
       :label="mainTitle"
       :prop="item.readOnly ? '' : item.prop"
-      :class="{'siding':item.type=='minMax'}"
+      :class="{'siding':item.type==='minMax'}"
     >
       <el-select
         :filterable="item.filterable"
@@ -34,13 +31,11 @@
       </el-select>
     </el-form-item>
 
-
     <el-form-item
       :label="subTitle"
-      :prop="item.readOnly ? '' : subProp"
-      :class="{'siding':item.type=='minMax'}"
+      :prop="subProp"
+      :class="{'siding':item.type==='minMax'}"
       v-if="showInput"
-
     >
       <el-input
         :disabled="item.readOnly"
@@ -48,84 +43,68 @@
         :placeholder="`请输入${subTitle}`"
         :maxlength="item.maxlength"
         @blur="getValue"
-
       ></el-input>
     </el-form-item>
-
   </div>
 </template>
 
-<script type="text/ecmascript-6">
-
-  export default {
-    name: 'stationTransfer',
-    components: {
-    },
-    props: {
-      item: {
-        type: Object,
-        default: function () {
-          return {}
-        }
+<script>
+export default {
+  name: 'stationTransfer',
+  props: {
+    item: {
+      type: Object,
+      default: function () {
+        return {}
       }
-    },
-    data() {
-      return {
-        mainTitle: '',
-        subTitle: '',
-        mainProp: '',
-        subProp: '',
-        form: {},
-        showInput: false,
-      }
-    },
-    watch: {
-      firstStageValue(val) {
+    }
+  },
+  data() {
+    return {
+      mainTitle: '',
+      subTitle: '',
+      mainProp: '',
+      subProp: '',
+      form: {},
+      showInput: false
+    }
+  },
+  created() {
+    console.log('this.item.prop', this.item, this.item.field)
+    this.mainProp = this.item.field.split(',')[0]
+    this.subProp = this.item.field.split(',')[1]
 
-      }
+    this.mainTitle = this.item.title.split(',')[0]
+    this.subTitle = this.item.title.split(',')[1]
+    if (this.item.towItemValueObj) {
+      this.form = this.item.towItemValueObj
+      this.changeSelectMain()
+    }
+  },
+  methods: {
+    getValue() {
+      console.log(' this.form', this.form)
+      this.$emit('stationTransferValueBack', this.form)
     },
-    methods: {
-      getValue() {
-        console.log(' this.form',  this.form)
-        this.$emit('stationTransferValueBack', this.form)
-      },
-      changeSelectMain() {
-        this.$emit('stationTransferValueBack', this.form)
-        if (this.form[this.mainProp] === 'no') {
-          this.showInput = true
-          let backRule = {}
-          backRule[this.subProp] = {
-            message: `${this.subTitle}不能为空`,
-            required: true,
-            trigger: ['blur']
-          }
-          this.$emit('setRules', 'add', backRule)
-        } else {
-          this.showInput = false
-          this.$emit('setRules', 'delete', this.subProp)
-        }
-
-      },
-
-    },
-    async mounted() {
-
-    },
-    created() {
-      console.log('this.item.prop', this.item, this.item.field)
-      this.mainProp = this.item.field.split(',')[0]
-      this.subProp = this.item.field.split(',')[1]
-
-      this.mainTitle = this.item.title.split(',')[0]
-      this.subTitle = this.item.title.split(',')[1]
-      if (this.item.towItemValueObj) {
-        this.form = this.item.towItemValueObj
-        this.changeSelectMain()
+    changeSelectMain() {
+      this.$emit('stationTransferValueBack', this.form)
+      if (this.form[this.mainProp] === 'no') {
+        this.showInput = true
+        // let backRule = {}
+        // backRule[this.subProp] = {
+        //   message: `${this.subTitle}不能为空`,
+        //   required: true,
+        //   trigger: ['blur']
+        // }
+        // this.$emit('setRules', 'add', backRule)
+      } else {
+        this.showInput = false
+        // this.$emit('setRules', 'delete', this.subProp)
       }
     }
   }
+}
 </script>
 
 <style lang="less">
-
 </style>

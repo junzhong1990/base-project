@@ -1,33 +1,59 @@
-<template>
-  <div>
+<!--
+设备名称，设备型号，终端编号，供应商，游戏，押金，折旧费
 
+
+新增终端 - 设备名称、设备型号、供应商从仓库管理系统获取，押金、折旧费手动输入，为整数，单位为元，游戏下拉框选择
+撤销设备
+-->
+<template>
+  <div >
     <el-form-item :label="mainTitle" :prop="item.readOnly ? '' : item.prop">
-      <!-- 900px -->
       <div style="width: 830px;">
         <el-table
-            :data="tableData">
+          border stripe
+          :data="tableData">
           <el-table-column label="序号" type="index" width="50"></el-table-column>
           <el-table-column
-              prop="matName"
-              label="物品名称">
+            prop="matTypeName"
+            label="设备名称"
+            width="132">
             <template slot-scope="scope">
-              <el-input :disabled="item.readOnly?item.readOnly:false" v-model.number="scope.row.matName" placeholder="请选择物品" @focus="showGoodsList(scope)"></el-input>
+              <el-input v-model.number="scope.row.matTypeName" placeholder="请选择投注设备" :disabled="item.readOnly?item.readOnly:false"  @focus="showGoodsList(scope)"></el-input>
             </template>
           </el-table-column>
           <el-table-column
-              prop="matModel"
-              label="物品型号">
+            prop="matModelName"
+            label="设备型号">
           </el-table-column>
           <el-table-column
             prop="supplierName"
             label="供应商">
           </el-table-column>
           <el-table-column
-              prop="deviceCount"
-              label="数量"
-              width="180">
+            prop="stationCode"
+            label="终端编号"
+            width="150">
             <template slot-scope="scope">
-              <el-input v-model.number="scope.row.deviceCount" placeholder="请输入数量" maxlength="9" :disabled="item.readOnly?item.readOnly:false" @change="emitEvent"></el-input>
+              <el-input v-model="scope.row.stationCode" placeholder="请输入终端编号" maxlength="10" :disabled="item.readOnly?item.readOnly:false" @blur="stationCodeChange"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="游戏"
+            width="150">
+            <template slot-scope="scope">
+              <el-select
+                v-model="scope.row.gameId"
+                placeholder="请选择游戏"
+                multiple
+                :disabled="item.readOnly"
+              >
+                <el-option
+                  v-for="item in scope.row.gameList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                ></el-option>
+              </el-select>
             </template>
           </el-table-column>
           <el-table-column
@@ -46,62 +72,27 @@
               <el-input v-model.number="scope.row.depreciationFee" placeholder="请输入折旧费" maxlength="9" :disabled="item.readOnly?item.readOnly:false" @change="emitEvent"></el-input>
             </template>
           </el-table-column>
-
         </el-table>
       </div>
     </el-form-item>
     <div style="margin-top: 10px;margin-left: 165px;margin-bottom: 10px;">
-      <el-button  type="primary" size="medium" @click="storeGoodsAdd" :disabled="item.readOnly?item.readOnly:false">增加</el-button>
-      <el-button size="medium" @click="storeGoodsMi" :disabled="item.readOnly?item.readOnly:false">减少</el-button>
+      <el-button type="primary" size="medium" :disabled="item.readOnly?item.readOnly:false"  @click="storeGoodsAdd" >增加</el-button>
+      <el-button size="medium" :disabled="item.readOnly?item.readOnly:false"  @click="storeGoodsMi" >减少</el-button>
     </div>
-    <!--选择物品名称--弹窗-->
+    <!--选择设备名称--弹窗-->
     <el-dialog title="提示(只能选择一种类型)" :visible.sync="dialogVisible" width="80%">
-      <el-tabs v-model="goodsLabel" class="_blue-header" type="border-card" >
+      <el-tabs v-model="goodsLabel" class="_blue-header" type="border-card">
         <el-tab-pane label="设备" name="设备"></el-tab-pane>
         <!--<el-tab-pane label="耗材" name="耗材"></el-tab-pane>-->
+        <el-table stripe :data="goodsTableData" border style="width: 100%" height="200" ref="multipleTable"
+                  @selection-change="handleSelectionChange">
+          <el-table-column type="selection" width="55"></el-table-column>
+          <el-table-column label="序号" width="50" align="center" type="index"></el-table-column>
+          <el-table-column label="设备名称" prop="matTypeName"></el-table-column>
+          <el-table-column label="设备型号" prop="matModelName"></el-table-column>
+          <el-table-column label="供应商" prop="supplierName"></el-table-column>
 
-        <TablePage :showPagination="false">
-          <!--顶部按钮组-->
-
-          <!--查询条件-->
-          <div slot="query">
-            <QueryForm ref="query_form"
-                       :queryApiCode="searchApi"
-                       :itemList="itemList"
-                       @tableData="getTableData"
-                       >
-            </QueryForm>
-          </div>
-          <!--表格-->
-          <div slot="TableSlot">
-            <!--带操作按钮的列表-->
-            <el-table stripe :data="goodsTableData" border style="width: 100%" height="200" ref="multipleTable"
-                      @selection-change="handleSelectionChange">
-              <el-table-column type="selection" width="55"></el-table-column>
-              <el-table-column label="序号" width="50" align="center" type="index"></el-table-column>
-              <el-table-column label="物品名称" prop="matName"></el-table-column>
-              <el-table-column label="物品型号" prop="matModel" ></el-table-column>
-              <el-table-column label="计量单位" prop="matTypeUnit">
-                <template slot-scope="scope">
-                  <lastUnit :matTypeUnit="scope.row.matTypeUnit"></lastUnit>
-                </template>
-              </el-table-column>
-              <el-table-column label="成本单价" prop="costPrice"></el-table-column>
-              <el-table-column label="供应商" prop="supplierName"></el-table-column>
-
-              <el-table-column label="是否标配" prop="standardStatus">
-                <template slot-scope="scope">
-
-                  {{ lookup(scope.row.standardStatusDic, scope.row.standardStatus) || '否' }}
-                </template>
-              </el-table-column>
-
-            </el-table>
-
-          </div>
-        </TablePage>
-
-
+        </el-table>
       </el-tabs>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
@@ -127,35 +118,16 @@
     },
     data() {
       return {
-        itemList: [
-          {
-            label: '物品名称',
-            value: 'matName',
-            type: 'text',
-            disable: false
-          },
-          {
-            label: '物品型号',
-            value: 'matModel',
-            type: 'text',
-            disable: false
-          },
-          {
-            label: '是否标配',
-            value: 'standardStatus',
-            type: 'select',
-            options: this.lookUpOptions('yesOrNo')
-          }
-        ],
-        searchApi: {
-          apiCode: 'getMaterialList'
-        },
         mainProp: '',
         mainTitle: '',
         arr: [], // 对应级别转换率数组
         stepArr: [], // 一条数据，每一级转化成最小单位
         form: {},
         activeIndex: 0,
+        allGoodsList: {
+          device: [],
+          consumables: []
+        },
         multipleSelection: [],
         goodsLabel: '设备',
         goodsTableData: [],
@@ -164,43 +136,49 @@
         column: [
           {
             prop: 'materialType',
-            label: '物品名称',
+            label: '设备类型',
             width: 180,
             options: this.lookUpOptions('station.materialType')
           },
           {
             prop: 'materialName',
-            label: '物品名称'
+            label: '设备名称'
           },
           {
             prop: 'deviceType',
-            label: '物品型号'
+            label: '设备型号'
           },
           {
             prop: 'saleTerminalCode',
-            label: '物品序列号'
+            label: '设备序列号'
           }
         ]
       }
     },
-    computed: {},
+     created() {
+      this.getGoodsList()
+      this.tableData = this.item.value ? this.item.value : []
+      this.mainProp = this.item.field.split(',')[0]
+      this.mainTitle = this.item.title.split(',')[0]
+      this.emitEvent()
+    },
     methods: {
-
-      /* 获取列表信息 */
-      getTableData(val) {
-
-        this.goodsTableData = val
-
+      stationCodeChange() {
+        let stationCodeMap = this.tableData.map(d => d.stationCode)
+        let stationCodeSet = Array.from(new Set(stationCodeMap))
+        if(stationCodeMap.length > stationCodeSet.length) {
+          this.$message.warning('投注设备终端编号不能重复')
+        }
+        this.emitEvent()
       },
       emitEvent() {
         this.$set(this.form, this.mainProp, this.tableData)
-        this.$emit('newStationGoodsListValueBack', this.form)
+        this.$emit('terminalDeviceListValueBack', this.form)
       },
       storeGoodsAdd() {
         console.log('增加')
         let arr = JSON.parse(JSON.stringify(this.tableData))
         arr.push({
-          exportWarehouseId: this.form.exportWarehouseId
         })
         this.tableData = arr
         // this.$set(this.form, prop, arr)
@@ -220,7 +198,8 @@
         }, 100)
         this.activeIndex = item.$index
       },
-      // 选择物品名称
+
+      // 选择设备名称
       chooseGoodsName(item) {
         let arr = JSON.parse(JSON.stringify(this.multipleSelection))
         this.tableData.splice(this.activeIndex, 1)
@@ -229,23 +208,26 @@
       },
       // checkbox 多选事件
       handleSelectionChange(val) {
-        console.log('多选的值', val)
         this.multipleSelection = val
       },
-    },
-    beforeMount() {
-    },
-    created() {
-      this.tableData = this.item.value ? this.item.value : []
-      this.mainProp = this.item.field.split(',')[0]
-      this.mainTitle = this.item.title.split(',')[0]
-      this.emitEvent()
-    },
-    async mounted() {
-      console.log(this.$route.path)
+      // 获取设备列表信息
+      async getGoodsList() {
+        let res = await this.$api.terminalPage()
+        if (res && res.code === 0) {
+          this.goodsTableData = res.data.list
+        }
+      },
+      // 把组件过来的每一级别的matAmount赋值到列表对应的数据
+      setCount(newObj, oldObj) {
+        if (newObj.id == oldObj.id) {
+          oldObj.matAmount = newObj.matAmount
+        } else {
+          this.setCount(newObj, oldObj.child)
+        }
+      }
     }
   }
 </script>
-<style lang="less" scoped>
+<style lang="less" >
 
 </style>

@@ -16,6 +16,8 @@
       <el-select
           v-model="form.adminId"
           :placeholder="'请选择区域经理'"
+          :disabled="item.readOnly?item.readOnly:false"
+
       >
         <el-option
             v-for="(items,index) in adminList"
@@ -44,7 +46,6 @@
     },
     data() {
       return {
-        firstOne: false,
         adminDisabled: true,
         adminList: [],
         qryObjArea: {
@@ -63,18 +64,37 @@
         sourceDataSubObject: {}
       }
     },
-    methods: {
-      componentValueSet(form) {
-        this.form[this.mainProp] = form[this.mainProp]
-        this.form[this.subProp] = form[this.subProp]
-        this.form.adminName = ''
-        this.getAdminList(form[this.mainProp])
-        if (this.firstOne) {
-          this.form.adminId = ''
-          this.form.adminName = ''
-          this.firstOne = true
-        }
+    created() {
+      this.mainProp = this.item.field.split(',')[0]
+      this.subProp = this.item.field.split(',')[1]
+      if (this.item.towItemValueObj) {
+        this.form = this.item.towItemValueObj
+      }
+      this.eventBus.$on('areaAdminChange', (allForm) => {
+        this.$set(this.form, 'adminId', allForm.adminId)
+        this.$set(this.form, 'adminName', allForm.adminName)
+        this.$set(this.form, 'regionName' , allForm.regionName)
+        this.$set(this.form, this.mainProp , allForm[this.mainProp])
+        this.$set(this.form, this.subProp, allForm[this.subProp])
         console.log(this.form)
+        this.$emit('areaAdminValueBack', this.form)
+      })
+    },
+    methods: {
+      async componentValueSet(form) {
+        console.log(form)
+        this.form[this.mainProp] = form[this.mainProp]
+        // this.form[this.subProp] = form[this.subProp]
+        this.$set(this.form, 'regionName' , form[this.subProp])
+        await this.getAdminList(form[this.mainProp])
+        console.log('this.adminList', this.adminList)
+        let indexNowSelected =  this.adminList.findIndex(a => a.value === this.form.adminId)
+        console.log('indexNowSelectedadminList', indexNowSelected)
+
+        if (indexNowSelected < 0) {
+          this.form.adminName = ''
+          this.form.adminId = ''
+        }
         this.$emit('areaAdminValueBack', this.form)
       },
       changeSelectMain(selectItem,) {
@@ -92,27 +112,6 @@
           this.adminList = res.data
         }
       },
-    },
-    beforeMount() {
-
-    },
-    created() {
-      this.mainProp = this.item.field.split(',')[0]
-      this.subProp = this.item.field.split(',')[1]
-      if (this.item.towItemValueObj) {
-        this.form = this.item.towItemValueObj
-      }
-      this.eventBus.$on('areaAdminChange', (allForm) => {
-        this.$set(this.form, 'adminId', allForm.adminId)
-        this.$set(this.form, 'adminName', allForm.adminName)
-        this.$set(this.form, this.mainProp , allForm[this.mainProp])
-        this.$set(this.form, this.subProp, allForm[this.subProp])
-        console.log(this.form)
-        this.$emit('areaAdminValueBack', this.form)
-      })
-    },
-    async mounted() {
-
     }
   }
 </script>

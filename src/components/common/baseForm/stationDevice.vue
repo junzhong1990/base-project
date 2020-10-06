@@ -1,8 +1,6 @@
 <template>
   <!-- {label: '建站设备列表', value: 'newStationDevice'} -->
   <el-table
-    border
-    stripe
     :data="data"
     style="width: 100%">
     <el-table-column label="序号" type="index" width="50"></el-table-column>
@@ -55,6 +53,14 @@
           {
             prop: 'deviceCount',
             label: '数量'
+          },
+          {
+            prop: 'deposit',
+            label: '押金(元)'
+          },
+          {
+            prop: 'depreciationFee',
+            label: '折旧费(元)'
           }
         ]
       }

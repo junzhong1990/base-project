@@ -3,7 +3,6 @@
 游戏权限列表
   -->
   <el-table
-    border stripe
     :data="permissionsList"
     style="width: 100%">
     <el-table-column label="序号" type="index" width="50"></el-table-column>

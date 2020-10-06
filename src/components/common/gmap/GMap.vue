@@ -143,6 +143,14 @@
         if (val && this.locStart) this.ridingPathCreat()
       }
     },
+    async mounted() {
+      if (window.AMap) {
+        this.createAmap(this.regionName, false)
+      }else {
+        await remoteLoad(`https://webapi.amap.com/maps?v=1.4.15&key=4199fe377dd77297c6e4cee01bd0b266&plugin=AMap.MarkerClusterer,AMap.Riding,AMap.AdvancedInfoWindow`)
+        this.createAmap(this.regionName, false)
+      }
+    },
     methods: {
       // 边界查询
       async queryHeatmapData() {
@@ -406,17 +414,6 @@
         }
         // 根据起终点坐标规划骑行路线
         this.ridingPath.search(this.locStart, this.locEnd)
-      }
-    },
-    components: {
-      remoteLoad
-    },
-    async mounted() {
-      if (window.AMap) {
-        this.createAmap(this.regionName, false)
-      }else {
-        await remoteLoad(`https://webapi.amap.com/maps?v=1.4.15&key=4199fe377dd77297c6e4cee01bd0b266&plugin=AMap.MarkerClusterer,AMap.Riding,AMap.AdvancedInfoWindow`)
-        this.createAmap(this.regionName, false)
       }
     }
   }

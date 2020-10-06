@@ -1,7 +1,10 @@
 <template>
   <div>
-    <el-form-item label="调出仓库" prop="exportWarehouseId" v-if="item.type == 'storeAllocationGoodsList'">
-      <el-select v-model="form.exportWarehouseId" placeholder="请选择" @change="setOutListNum" :disabled="item.readOnly">
+    <el-form-item :label="item.type == 'storeAllocationGoodsList' ? '调出仓库' : '报损仓库'" :prop="item.type == 'storeAllocationGoodsList' ? 'exportWarehouseId' : 'whId' " v-if="item.type == 'storeAllocationGoodsList' || item.type == 'storeDamageGoodsList'">
+      <el-select v-model="form.exportWarehouseId" placeholder="请选择" @change="setOutListNum" :disabled="item.readOnly" v-if="item.type == 'storeAllocationGoodsList'">
+        <el-option v-for="item in storeList" :label="item.label" :key="item.value" :value="item.value"></el-option>
+      </el-select>
+      <el-select v-model="form.whId" placeholder="请选择" @change="setOutListNum" :disabled="item.readOnly" v-if="item.type == 'storeDamageGoodsList'">
         <el-option v-for="item in storeList" :label="item.label" :key="item.value" :value="item.value"></el-option>
       </el-select>
     </el-form-item>
@@ -58,7 +61,7 @@
               prop="remark"
               label="备注">
             <template slot-scope="scope">
-              <el-input v-model.number="scope.row.remark" placeholder="请输入备注" :disabled="item.readOnly"></el-input>
+              <el-input v-model="scope.row.remark" placeholder="请输入备注" :disabled="item.readOnly"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -70,16 +73,16 @@
             </template>
           </el-table-column>
           <el-table-column
-              v-if="item.type == 'storeAllocationGoodsList'"
+              v-if="item.type == 'storeAllocationGoodsList' || item.type == 'storeDamageGoodsList'"
               prop="exportWarehouseAmount"
-              label="调出仓库库存">
+              label="仓库库存">
           </el-table-column>
         </el-table>
       </div>
     </el-form-item>
-    <div style="margin-top: 10px;margin-left: 120px;margin-bottom: 10px;">
-      <el-button  type="success" size="medium" @click="storeGoodsAdd" :disabled="item.readOnly">增加</el-button>
-      <el-button type="danger" size="medium" @click="storeGoodsMi" :disabled="item.readOnly">减少</el-button>
+    <div style="margin-top: 10px;margin-left: 165px;margin-bottom: 10px;">
+      <el-button  type="primary" size="medium" @click="storeGoodsAdd" :disabled="item.readOnly">增加</el-button>
+      <el-button  size="medium" @click="storeGoodsMi" :disabled="item.readOnly">减少</el-button>
     </div>
     <el-form-item label="合计金额(元)" prop="totalPrice">
       <el-input v-model="form.totalPrice" disabled></el-input>
@@ -189,7 +192,7 @@
         console.log('增加')
         let arr = JSON.parse(JSON.stringify(this.tableData))
         arr.push({
-          exportWarehouseId: this.form.exportWarehouseId
+          exportWarehouseId: this.item.type == 'storeAllocationGoodsList' ? this.form.exportWarehouseId : this.form.whId
         })
         this.tableData = arr
         // this.$set(this.form, prop, arr)
@@ -268,17 +271,17 @@
       // 获取调出仓库的库存
       async setOutListNum() {
         this.emitEvent()
-        if (this.item.type == 'storeAllocationGoodsList' && this.form.exportWarehouseId) {
+        if ((this.item.type == 'storeAllocationGoodsList' && this.form.exportWarehouseId || this.item.type == 'storeDamageGoodsList' && this.form.whId) ) {
           this.tableData.forEach((val, i) => {
             // 每一条数据加上出库id
-            this.$set(this.tableData[i], 'exportWarehouseId', this.form.exportWarehouseId)
+            this.$set(this.tableData[i], 'exportWarehouseId', this.item.type == 'storeAllocationGoodsList' ? this.form.exportWarehouseId : this.form.whId)
             // 物品列表空数据  就不做请求
             if (!val.matModelId) {
               return
             }
             let data = {
               matModelId: val.matModelId,
-              wareHouseId: this.form.exportWarehouseId
+              wareHouseId: this.item.type == 'storeAllocationGoodsList' ? this.form.exportWarehouseId : this.form.whId
             }
             this.$api.checkWarehouseInventory({data}).then(res => {
               if (res.code == '0') {
@@ -375,7 +378,7 @@
       },
       // 做库存对比校验
       checkNumOutOver() {
-        if (this.$store.state.dicStore["CHECK_INVENTORY"] && this.item.type == 'storeAllocationGoodsList') {
+        if (this.$store.state.dicStore["CHECK_INVENTORY"] && (this.item.type == 'storeAllocationGoodsList' || this.item.type == 'storeDamageGoodsList')) {
           console.log(this.tableData)
           setTimeout(() => {
             this.tableData.forEach((val, i) => {
@@ -386,8 +389,8 @@
                 this.tableData[i].totalPrice = 0
                 this.makeNumZero(this.tableData[i].matTypeUnit)
                 this.unitKey++
-                this.$message.close()
-                this.$message.error(val.matModel + '数量超出库存数')
+                this.$message.closeAll()
+                this.$message.warning(val.matModel + '数量超出库存数')
               }
             })
           }, 100)
@@ -408,7 +411,6 @@
           // if (!item.id) {
           //   return
           // }
-          console.log(121212)
           this.setCount(item, this.tableData[index].matTypeUnit)
           this.checkNumOutOver()
         }, 100)
@@ -432,6 +434,9 @@
         this.$set(this.form, 'totalPrice', allForm.totalPrice)
         if (this.item.type == 'storeAllocationGoodsList') {
           this.$set(this.form, 'exportWarehouseId', allForm.exportWarehouseId)
+        }
+        if (this.item.type == 'storeDamageGoodsList') {
+          this.$set(this.form, 'whId', allForm.whId)
         }
         this.emitEvent()
       })

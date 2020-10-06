@@ -8,7 +8,7 @@
 </template>
 <script>
   export default {
-    name: "lastUnit",
+    name: 'lastUnit',
     props: {
       matTypeUnit: {
         type: Object,
@@ -16,17 +16,6 @@
           return {}
         }
       },
-    },
-    watch: {
-
-    },
-    data() {
-      return {
-      }
-    },
-    async mounted() {
-    },
-    methods: {
     }
-  };
+  }
 </script>

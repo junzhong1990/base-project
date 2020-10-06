@@ -77,17 +77,10 @@
         this.radioResult = ''
         this.$emit('checkboxRadioResult', '')
       },
-    },
-    mounted() {
-    },
-    beforeMount() {
-
     }
   }
 
 </script>
-
 <style lang="less">
-  .checkboxRadio {
-  }
+
 </style>
