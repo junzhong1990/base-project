@@ -40,8 +40,19 @@ export const getDicData = () => {
   return storage.session.get('dicData')
 }
 
+// 系统语言
+export const setSysLang = data => {
+  data = data || ''
+  storage.set('sysLang', data)
+}
+
+export const getSysLang = () => {
+  return storage.get('sysLang') || ''
+}
+
 // 清除缓存
 export const clear = () => {
   storage.clear()
+  storage.session.clear()
 }
 

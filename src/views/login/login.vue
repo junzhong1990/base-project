@@ -95,7 +95,6 @@ export default {
       this.$set(this.lang, 2, { label: this.$t('MESSAGE-KO'), value: 2 })
     }
   },
-  computed: {},
   async created() {
     let ticketObj = this.$route.fullPath.split('?')[1]
     if (ticketObj) {
@@ -166,14 +165,14 @@ export default {
       if (res && res.code === 0) {
         console.log(res)
         userCache.setToken(res.data)
-        this.$glStorage.set('lang', this.langList[this.language])
+        userCache.setSysLang(this.langList[this.language])
         this.$router.push({
           name: 'resourceManage'
         })
       }
     },
     login() {
-      this.$glStorage.set('lang', this.langList[this.language])
+      userCache.setSysLang(this.langList[this.language])
       this.$router.push({
         name: 'logManage'
       })
@@ -190,7 +189,6 @@ export default {
   }
 }
 </script>
-
 
 <style lang="less" scoped>
   @import "./less/login.less";
