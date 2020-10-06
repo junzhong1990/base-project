@@ -25,7 +25,6 @@ export default {
   },
   beforeMount() {
     this.firstColor(this.$store.state.settings.theme)
-    // this.theme = '#567CDB'
   },
   watch: {
     defaultTheme: {

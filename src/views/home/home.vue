@@ -3,16 +3,15 @@
     <div v-if="$store.state.device === 'mobile' && $store.state.menuOpen" class="drawer-bg" @click="handleClickOutside" />
     <sideMenu v-if="$store.state.device == 'desktop' || $store.state.menuOpen" :class="{ openMenu: $store.state.menuOpen }"></sideMenu>
     <div class="right-container">
-      <adminHeader></adminHeader>
+      <adminHeader />
       <div class="main" id="main" ref="main">
-        <div ref="mainBody" class="main-body" :class="[{fullHeight:isFullHeight},fsMode.className]">
-            <div class="card">
-              <!-- <collection v-if="showStatisticsManage" /> -->
-              <keep-alive >
-                <router-view v-if="$route.meta.keepAlive" :key="$route.fullPath" class="cardBody"></router-view>
-              </keep-alive>
-              <router-view v-if="!$route.meta.keepAlive" :key="$route.fullPath" class="cardBody"></router-view>
-            </div>
+        <div ref="mainBody" class="main-body" :class="[{fullHeight:isFullHeight}, fsMode.className]">
+          <div class="card">
+            <keep-alive >
+              <router-view v-if="$route.meta.keepAlive" :key="$route.fullPath" class="cardBody"></router-view>
+            </keep-alive>
+            <router-view v-if="!$route.meta.keepAlive" :key="$route.fullPath" class="cardBody"></router-view>
+          </div>
         </div>
       </div>
     </div>
@@ -24,13 +23,12 @@
 
 <script>
   import RightPanel from '@/components/common/rightPanel'
-  import { keepAlive } from '@/utils/cache'
   import sideMenu from '@/components/main/sideMenu'
   import adminHeader from '@/components/main/adminHeader'
   import Settings from './settings/index'
+  import { keepAlive } from '@/utils/cache'
   import { mapGetters, mapMutations, mapState } from 'vuex'
   // import store from '@/store'
-  // import collection from './collection'
   // const { body } = document
   const WIDTH = 992 // refer to Bootstrap's responsive design
   export default {

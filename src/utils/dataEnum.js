@@ -316,8 +316,8 @@ export default {
   },
   // 根据值获取label显示展示
   getData: (item, val) => {
-    // console.log('item', item, val)
-    const obj = (staticDic[item] || []).find(v => v.value === val)
+    /* eslint-disable */
+    const obj = (staticDic[item] || []).find(v => v.value == val)
     return obj ? obj.label : val
   },
 }

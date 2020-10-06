@@ -44,8 +44,8 @@ export default {
     const _value = value
     const test = !!(/^\d+(\.\d{0,2})?$/g.test(_value))
     if (!_value) {
-      // callback();
-      // return callback(new Error(`单价不能为空`));
+      // callback()
+      // return callback(new Error(`单价不能为空`))
     }
     if (!Number(test)) {
       return callback(new Error('单价必须为数字且最多保留两位小数'))
@@ -58,7 +58,7 @@ export default {
     const test = !!(/(^[0-9]\d*$)/.test(_value))
     if (!_value) {
       callback()
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
     }
     if (_value.length < 4) {
       return callback(new Error(`${rule.name}请输入四位数字`))
@@ -74,7 +74,7 @@ export default {
     const test = !!(/(^[0-9]\d*$)/.test(_value))
     if (!_value) {
       callback()
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
     }
     if (!Number(test)) {
       return callback(new Error(`${rule.name}必须为数字`))
@@ -90,7 +90,7 @@ export default {
     const test = !!(/(^[1-9]\d*(\.\d{1,2})?$)|(^0(\.\d{1,2})?$)/.test(_value))
     if (!_value) {
       callback()
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
     }
     if (!Number(test)) {
       return callback(new Error(`${rule.name}必须为数字`))
@@ -103,7 +103,7 @@ export default {
     const test = /(^[1-9]\d*$)/.test(_value)
     if (!_value) {
       callback()
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
     }
     if (_value && !test) {
       return callback(new Error(`${rule.name}必须输入数字`))
@@ -116,7 +116,7 @@ export default {
     const test = /(^[1-9][0-9]*$)/.test(_value)
     if (!_value) {
       callback()
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
     }
     if (_value && !test) {
       return callback(new Error(`${rule.name}必须为正整数`))
@@ -128,7 +128,7 @@ export default {
     const _value = value && String(value).trim()
     if (!_value) {
       callback()
-      // return callback(new Error('负责人不能为空'));
+      // return callback(new Error('负责人不能为空'))
     }
     callback()
   },
@@ -161,7 +161,7 @@ export default {
     const reg = /^[a-zA-Z0-9!@#$%^&_+=-]{6,16}$/g
     if (!_value) {
       callback()
-      // return callback(new Error('密码不能为空'));
+      // return callback(new Error('密码不能为空'))
     }
     if (_value && !reg.test(_value)) {
       return callback(new Error('仅支持6-16位数字英文大小写或特殊字符'))
@@ -174,7 +174,7 @@ export default {
     const test = /^[1][3,4,5,6,7,8,9][0-9]{9}$/.test(_value)
     if (!_value) {
       callback()
-      // return callback(new Error('手机号不能为空'));
+      // return callback(new Error('手机号不能为空'))
     }
     if (!test) {
       return callback(new Error('请输入正确的手机号'))
@@ -191,7 +191,7 @@ export default {
       console.log(rule.name)
       console.log(rule.title)
       callback()
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
     }
     if (!test) {
       return callback(new Error(`请输入正确的${rule.name}`))
@@ -204,7 +204,7 @@ export default {
     const test = /^0\d{2,3}-\d{7,8}$/g.test(_value)
     if (!_value) {
       callback()
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
     }
     if (!test) {
       return callback(new Error(`请输入正确的${rule.name}`))
@@ -226,7 +226,7 @@ export default {
     const test = !!/^[a-zA-Z\d]+([-_.][a-zA-Z\d]+)*@[a-zA-Z\d]+\.[a-zA-Z\d]{2,4}$/.test(_value)
     if (!_value) {
       callback()
-      // return callback(new Error('邮箱不能为空'));
+      // return callback(new Error('邮箱不能为空'))
     }
     if (!test) {
       return callback(new Error('邮箱格式不正确'))
@@ -239,7 +239,7 @@ export default {
     const test = !!/^[a-zA-Z\d]+([-_.][a-zA-Z\d]+)*@[a-zA-Z\d]+\.[a-zA-Z\d]{2,4}$/.test(_value)
     if (!_value) {
       callback()
-      // return callback(new Error('邮箱不能为空'));
+      // return callback(new Error('邮箱不能为空'))
     }
     if (!test) {
       return callback(new Error('邮箱格式不正确'))
@@ -282,7 +282,7 @@ export default {
     const _value = value && String(value).trim()
     if (!_value) {
       callback()
-      // return callback(new Error('机构编号不能为空'));
+      // return callback(new Error('机构编号不能为空'))
     }
     callback()
   },
@@ -326,10 +326,10 @@ export default {
     const test = !!/^[1-9-]*[1-9][0-9]*$/.test(_value)
     if (!_value) {
       callback()
-      // return callback(new Error(rule.emptyMessage));
+      // return callback(new Error(rule.emptyMessage))
     }
     if (!test) {
-      // return callback(new Error(rule.errorMessage));
+      // return callback(new Error(rule.errorMessage))
       return callback(new Error('只能输入整数'))
     }
     callback()
@@ -340,7 +340,7 @@ export default {
     const test = /^[a-zA-Z0-9_-]*$/.test(_value)
     if (!_value) {
       callback()
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
     }
     if (!test) {
       return callback(new Error(`${rule.name}只能输入数字，字母，下划线或-`))
@@ -379,7 +379,7 @@ export default {
     const _value = value && String(value).trim()
     const reg = /^\d+(\.\d{0,2})?$/g
     if (!_value && _value !== 0) {
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
     }
     if (!reg.test(_value)) {
       return callback(new Error(rule.message || `${rule.name}必须为数字且最多保留两位小数`))
@@ -395,7 +395,7 @@ export default {
     const reg = /^\d+(\.\d{0,2})?$/g
     if (!_value) {
       callback()
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
     }
     if (!reg.test(_value)) {
       return callback(new Error(`${rule.name}必须为数字且最多保留两位小数`))
@@ -431,7 +431,7 @@ export default {
     const _value = value && String(value).trim()
     const reg = /^\d+(\.\d{0,2})?$/g.test(_value)
     if (!_value && _value !== 0) {
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
       callback()
     }
     if (!reg) {
@@ -448,7 +448,7 @@ export default {
       return callback(new Error('金额须大于0'))
     }
     // if(!reg.test(_value)){
-    //   return callback(new Error('捐款金额必须是数字'));
+    //   return callback(new Error('捐款金额必须是数字'))
     // }
     callback()
   },
@@ -458,7 +458,7 @@ export default {
     const test = !!/^((ht|f)tps?):\/\/[\w-]+(\.[\w-]+)+([\w\-.,@?^=%&:/~+#]*[\w\-@?^=%&/~+#])?$/.test(_value)
     if (!_value) {
       callback()
-      // return callback(new Error('请输入URL地址'));
+      // return callback(new Error('请输入URL地址'))
     }
     if (!test) {
       return callback(new Error('URL地址输入有误'))
@@ -471,7 +471,7 @@ export default {
     const test = /^[-+]?(0?\d{1,2}\.\d{6}|1[0-7]?\d{1}\.\d{6}|180\.0{6})$/.test(_value)
     if (!_value) {
       callback()
-      // return callback(new Error('经度不能为空'));
+      // return callback(new Error('经度不能为空'))
     }
     if (!test) {
       return callback(new Error('请输入-180~180范围且包括6位小数点的经度'))
@@ -484,7 +484,7 @@ export default {
     const test = /^[-+]?([0-8]?\d{1}\.\d{6}|90\.0{6})$/.test(_value)
     if (!_value) {
       callback()
-      // return callback(new Error('纬度不能为空'));
+      // return callback(new Error('纬度不能为空'))
     }
     if (!test) {
       return callback(new Error('请输入-90~90范围且包括6位小数的纬度'))
@@ -496,7 +496,7 @@ export default {
     const _value = value && String(value).trim()
     const reg = /(^[1-9]\d*$)/
     if (!_value && rule.required === 'true') {
-      // return callback(new Error(`请输入数值`));
+      // return callback(new Error(`请输入数值`))
     }
     if (_value && !reg.test(_value)) {
       return callback(new Error('值必须为正整数'))
@@ -511,27 +511,27 @@ export default {
     const _value = value && String(value).trim()
     const test = /(^[1-9]\d*$)/.test(_value)
     if (!_value && rule.required === 'true') {
-      // return callback(new Error(`请输入数值`));
+      // return callback(new Error(`请输入数值`))
     }
     if (!test && value) {
       return callback(new Error('值必须为正整数'))
     }
     // if (rule.name == '大奖数量') {
     //   if (_value && (value > 1000 || value <= 0)) {
-    //     return callback(new Error(`值必须在1到1000之间`));
+    //     return callback(new Error(`值必须在1到1000之间`))
     //   }
     // } else if(rule.name == '年任务设置'){
     //   if(value <=20000000){
-    //     return callback(new Error(`值必须大于20000000`));
+    //     return callback(new Error(`值必须大于20000000`))
     //   }
     //   if(value >=1000000000){
-    //     return callback(new Error(`值必须小于1000000000`));
+    //     return callback(new Error(`值必须小于1000000000`))
     //   }
 
     // }
     // else {
     //   if (_value && value >= 100000000 ) {
-    //     return callback(new Error(`值必须小于100000000`));
+    //     return callback(new Error(`值必须小于100000000`))
     //   }
     // }
 
@@ -543,7 +543,7 @@ export default {
     const test = /(^[1-9]\d*$)/.test(_value)
     if (!_value) {
       callback()
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
     }
     if (!test) {
       return callback(rule.message || new Error(`${rule.name}必须为正整数`))
@@ -556,7 +556,7 @@ export default {
     const test = /(^[1-9]\d*$)/.test(_value)
     if (!_value) {
       callback()
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
     }
     if (_value > 100) {
       return callback(new Error(`${rule.name}不能大于100`))
@@ -572,7 +572,7 @@ export default {
     const test = /(^[1-9]\d*$)/.test(_value)
     if (!_value) {
       callback()
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
     }
     if (_value > 365) {
       return callback(new Error(`${rule.name}不能超过365天`))
@@ -588,7 +588,7 @@ export default {
     const test = /(^[1-9]\d*$)/.test(_value)
     if (!_value) {
       callback()
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
     }
     if (!test) {
       return callback(new Error(`${rule.name}必须为正整数`))
@@ -638,7 +638,7 @@ export default {
     const test = /^[A-Za-z0-9-_\u4e00-\u9fa5]+$/.test(_value)
     if (!_value) {
       callback()
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
     }
     if (!test) {
       return callback(new Error(`${rule.name}只能输入中英文，数字或-_组合`))
@@ -660,7 +660,7 @@ export default {
     const test = /^[A-Za-z\u4e00-\u9fa5]+$/.test(_value)
     if (!_value) {
       callback()
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
     }
     if (!test) {
       return callback(new Error(`${rule.name}只能输入中英文`))
@@ -697,7 +697,7 @@ export default {
     const test = /^[1-9][0-9]*$/.test(_value)
     if (!_value) {
       callback()
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
     }
     if (!test) {
       return callback(new Error(`${rule.name}只能输入正整数`))
@@ -718,7 +718,7 @@ export default {
     const _value = value && String(value).trim()
     const test = /^[0-9]*$/.test(_value)
     if (!_value && _value !== 0) {
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
     }
     if (!test) {
       return callback(new Error(`${rule.name}只能输入数字`))
@@ -744,9 +744,9 @@ export default {
   // 指定大厅输入
   checkChannelNo: (rule, value, callback) => {
     const _value = value && String(value).trim()
-    const test = /^\d{10}(;\d{10})*$/g.test(_value)
+    const test = /^\d{10}(\d{10})*$/g.test(_value)
     if (!_value) {
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
     }
     if (!test) {
       return callback(new Error(`${rule.name}需按规范输入`))
@@ -758,7 +758,7 @@ export default {
     const _value = value && String(value).trim()
     const test = /^[_A-Za-z0-9#]+$/.test(_value)
     if (!_value) {
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
     }
     if (!test) {
       return callback(new Error(`${rule.name}只能输入英文，数字和#`))
@@ -770,7 +770,7 @@ export default {
     const _value = value && String(value).trim()
     const test = /^[\u4e00-\u9fa5]+$/gi.test(_value)
     if (!_value) {
-      // return callback(new Error(`${rule.name}不能为空`));
+      // return callback(new Error(`${rule.name}不能为空`))
     }
     if (!test) {
       return callback(new Error(`${rule.name}只能输入中文`))
@@ -802,18 +802,9 @@ export default {
   },
   // 不能特殊字符
   special: (val) => {
-    if (!Array.isArray(val) && new RegExp("[`~!@#$%^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]", 'gim').test(val)) {
+    if (!Array.isArray(val) && new RegExp("[`~!@#$%^&*()=|{}':',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]", 'gim').test(val)) {
       return true
-    };
+    }
     return false
-  },
-  /**
-   * 简单必填字段验证规则
-   * @param {string} str
-   * @param {string} trigger
-   * @param {boolean} required
-   */
-  str (str, required = false, trigger = 'blur') {
-    return [{ required: required, message: str, trigger: trigger }]
   }
 }

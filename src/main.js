@@ -6,11 +6,11 @@ import router from './router'
 import store from './store'
 import api from './api/'
 import ElementUI from 'element-ui'
-import '@/assets/scss/element-variables.scss'
+// import '@/assets/scss/element-variables.scss' // 在store/modules/settings加载了
 import '@/assets/less/app.less'
 import '@/assets/less/common.less'
-import 'bpmn-js/dist/assets/diagram-js.css'
-import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css'
+// import 'bpmn-js/dist/assets/diagram-js.css' // 流程图样式
+// import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css'
 import i18n from '@/components/i18n'
 import rules from '@/utils/rules'
 import dataEnum from '@/utils/dataEnum' // 数据枚举

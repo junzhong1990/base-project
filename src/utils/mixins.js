@@ -44,8 +44,9 @@ export default {
     // 使用： this.lookup('stationPerson.salesStatus', v)
     lookup: (key, val) => {
       const dicArr = (window.__lookup__ && window.__lookup__[key]) || getData()[key] || []
+      /* eslint-disable */
       const obj = (dicArr.some(v => v.children) ? flatDic(dicArr) : dicArr).find(v => v.value === val)
       return obj ? obj.label : val
-    },
-  },
+    }
+  }
 }

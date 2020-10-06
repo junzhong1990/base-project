@@ -2,7 +2,6 @@
   <div class="drawer-container">
     <div>
       <h3 class="drawer-title">页面设置</h3>
-
       <div class="drawer-item">
         <span>主题颜色</span>
         <theme-picker style="float: right;height: 26px;margin: -3px 8px 0 0;" @change="themeChange" />
@@ -70,6 +69,8 @@ export default {
       }
     }
   },
+  mounted() {
+  },
   methods: {
     themeChange(val) {
       console.log(val)
@@ -78,8 +79,6 @@ export default {
         value: val
       })
     }
-  },
-  mounted() {
   }
 }
 </script>
