@@ -13,7 +13,9 @@
           size="medium"
           @click="to(tag)"
           @close="close(tag, index)"
-        >{{ tag.childrenPageName ? tag.childrenPageName : tag.name}}</el-tag>
+        >
+          {{ tag.childrenPageName ? tag.childrenPageName : tag.name}}
+        </el-tag>
       </div>
       <i class="el-icon-d-arrow-left iconBtn" style v-show="showBtn" @click="clickBtn('left')"></i>
       <i
@@ -273,25 +275,25 @@ export default {
     }
   }
   .el-tag {
-    cursor: pointer;
-    background-color: #fff;
-    margin-left: 4px;
     position: relative;
+    margin-left: 4px;
     overflow: hidden;
-    border-width: 0px;
+    border-width: 0;
+    background-color: #fff;
+    cursor: pointer;
     &:before {
-      content: '';
+      float: left;
       width: 12px;
       height: 12px;
-      background-color: #e8eaec;
-      float: left;
-      border-radius: 100%;
       margin-top: 9px;
       margin-right: 7px;
+      border-radius: 100%;
+      background-color: #e8eaec;
+      content: '';
     }
     &.current {
       &:before {
-        background-color: #567cdb;
+        background-color: currentColor;
       }
     }
   }
