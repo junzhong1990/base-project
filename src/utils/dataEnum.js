@@ -1,4 +1,6 @@
-// 前端定义数据枚举
+/**
+ * @desc 前端定义数据枚举
+*/
 const autoList = [
   {
     name: 'sex',

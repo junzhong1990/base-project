@@ -31,7 +31,7 @@ export const keepAlive = {
 }
 
 // 本地存储
-export const storage = require('./storage').default
+export const storage = require('@/frontend/public/utils/storage').default
 
 export default {
   keepAlive,

@@ -3,9 +3,6 @@ const home = () => import(/* webpackChunkName: "home" */ '@/views/home/home')
 const login = () => import(/* webpackChunkName: "login" */ '@/views/login/login')
 const entry = () => import(/* webpackChunkName: "entry" */ '@/views/entry/entry')
 const locking = () => import(/* webpackChunkName: "locking" */ '@/views/locking/locking')
-// const iconList = () => import(/* webpackChunkName: "iconList" */ '@/views/homePage/icons/index')
-
-
 
 export default [
   {
@@ -33,20 +30,5 @@ export default [
     path: '/locking',
     name: 'locking',
     component: locking,
-  },
-  // {
-  //   path: '/icons',
-  //   name: 'icons',
-  //   component: iconList
-  // },
-  // {
-  //   path: '/formDemo',
-  //   name: 'formDemo',
-  //   component: formDemo
-  // },
-  // {
-  //   path: '/gameCreate',
-  //   name: 'gameCreate',
-  //   component: gameCreate
-  // }
+  }
 ]

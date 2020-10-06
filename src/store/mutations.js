@@ -1,5 +1,5 @@
 import * as types from './mutation-types'
-import storage from '@/utils/storage'
+import storage from '@/frontend/public/utils/storage'
 
 // 页面入口缓存更新，处理多窗口打开页面异常问题
 if (storage.get('entry') && !storage.session.get('entry')) {

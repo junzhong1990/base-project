@@ -151,7 +151,7 @@
         return new Promise((resolve, reject) => {
           let arr = this.filesArr = this.$refs.upload.uploadFiles
           if (!this.$refs.upload.uploadFiles.length) {
-            this.$common.showMsg('请先选择文件', 'warning')
+            this.$common.showMsg('请先选择文件')
             resolve(false)
           }
           let checkFileSuffix = this.type
@@ -171,7 +171,7 @@
           fileSuffix.forEach(suffix => {
             if (!checkFileSuffix.includes(suffix)) {
               flag = false
-              this.$common.showMsg('文件类型只支持：' + this.type.join(','), 'warning')
+              this.$common.showMsg('文件类型只支持：' + this.type.join(','))
               resolve(false)
             }
           })
@@ -188,11 +188,10 @@
               this.emitImgsFun(this.filesArr)
               resolve(true)
             } else {
-              this.$common.showMsg('文件容积太大', 'warning')
+              this.$common.showMsg('文件容积太大')
               resolve(false)
             }
           } else {
-            // this.$common.showMsg(`文件类型只支持：` + this.type.join(','), 'warning')
             resolve(false)
           }
         })
@@ -211,12 +210,12 @@
           })
           if (res.code === 0) {
             this.loading = false
-            this.$common.showMsg('上传成功')
+            this.$common.showMsg('上传成功', 'success')
             this.filesArr = []
             this.showUrl = res.data.outerUrl
             this.$emit('uploadResult', res.data.id, res.data.outerUrl)
           } else {
-            this.$common.showMsg('上传失败', 'warning')
+            this.$common.showMsg('上传失败')
           }
         } else {
           // 校验失败
@@ -256,9 +255,9 @@
       },
       handleExceed(files, fileList) {
         if (this.isMultiple) {
-          this.$common.showMsg(`当前限制选择 ${this.limit} 个文件，本次选择了 ${files.length} 个文件`, 'warning')
+          this.$common.showMsg(`当前限制选择 ${this.limit} 个文件，本次选择了 ${files.length} 个文件`)
         } else {
-          this.$common.showMsg('当前限制选择 1 个文件', 'warning')
+          this.$common.showMsg('当前限制选择 1 个文件')
         }
       },
       clear() {

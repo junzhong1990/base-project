@@ -1,4 +1,4 @@
-import { getRoutes } from '@/utils/common'
+import { getRoutes } from '@/frontend/public/utils/common'
 
 const routes = [
   {

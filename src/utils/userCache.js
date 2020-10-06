@@ -1,4 +1,4 @@
-import storage from './storage'
+import storage from '@/frontend/public/utils/storage'
 
 // token
 export const setToken = token => {

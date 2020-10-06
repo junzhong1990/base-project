@@ -25,7 +25,6 @@
 import baseForm from './baseForm'
 import rules from '@/utils/rules'
 import { getUserInfo } from '@/utils/userCache'
-// const Base64 = require('js-base64').Base64
 
 export default {
   name: 'userSetting',

@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import storage from '@/utils/storage'
 import rules from '@/utils/rules'
 import * as userCache from '@/utils/userCache'
 // import { mapMutations } from 'vuex'
@@ -167,14 +166,14 @@ export default {
       if (res && res.code === 0) {
         console.log(res)
         userCache.setToken(res.data)
-        storage.set('lang', this.langList[this.language])
+        this.$glStorage.set('lang', this.langList[this.language])
         this.$router.push({
           name: 'resourceManage'
         })
       }
     },
     login() {
-      storage.set('lang', this.langList[this.language])
+      this.$glStorage.set('lang', this.langList[this.language])
       this.$router.push({
         name: 'logManage'
       })

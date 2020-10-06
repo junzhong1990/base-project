@@ -1,5 +1,5 @@
 // 引入各个模块接口
-import homePage from './modules/homePage'
+import homePage from './home'
 import cms from './cms'
 
 // 合并接口

@@ -246,7 +246,7 @@
         const result = []
         const pVal = []
         const getPval = item => {
-          if (+item.pid) {
+          if (item && +item.pid && this.allIdData[item.pid]) {
             pVal.unshift(this.allIdData[item.pid].value)
             getPval(this.allIdData[item.pid])
           }

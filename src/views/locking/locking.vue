@@ -20,8 +20,6 @@
 </template>
 
 <script>
-// const a = require('@/assets/img/avatar.jpg')
-import storage from '@/utils/storage'
 import { mapGetters } from 'vuex'
 // import { Encrypt } from '@/utils/crypto'
 import * as userCache from '@/utils/userCache'
@@ -38,7 +36,7 @@ export default {
   },
   created() {
     // this.loginOut()
-    storage.set('locked', true)
+    this.$glStorage.set('locked', true)
   },
   methods: {
     showMessage(msg) {
@@ -67,7 +65,7 @@ export default {
         userCache.setToken(res.data.token)
         userCache.setUserInfo(res.data)
         this.$router.back()
-        storage.remove('locked')
+        this.$glStorage.remove('locked')
       }
     }
   }

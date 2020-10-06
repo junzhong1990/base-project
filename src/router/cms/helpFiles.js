@@ -1,5 +1,5 @@
 // 开发者须知
-const devNeedKnow = () => import('@/views/cms/helpFiles/devNeedKnow')
+const devNeedKnow = () => import(/* webpackChunkName: "devNeedKnow" */ '@/views/cms/helpFiles/devNeedKnow')
 
 
 export default [

@@ -1,7 +1,6 @@
 /**
- * 窗口可视区域相关
+ * @desc 窗口可视区域相关
 */
-
 export default {
   // 获取窗口宽度
   getWidth() {

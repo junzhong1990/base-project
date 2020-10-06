@@ -1,7 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
-// import storage from './storage'
-import io from 'socket.io-client'
+// import io from 'socket.io-client'
 import { baseURL } from '@/api/baseConfig'
 import { Message, Loading } from 'element-ui'
 import * as userCache from '@/utils/userCache'
@@ -11,6 +10,17 @@ import * as userCache from '@/utils/userCache'
 axios.defaults.withCredentials = false
 axios.defaults.headers.common['Content-Type'] = 'application/jsoncharset=UTF-8'
 axios.defaults.baseURL = baseURL
+
+// 5*60*1000
+const TIMEOUT = 300000
+
+const ERRORS = {
+  'Network Error': '网络错误，请检查网络',
+  [`timeout of ${TIMEOUT}ms exceeded`]: '请求超时，服务器未响应',
+  'Internal Server Error': '请求服务器错误',
+  'Request failed with status code 502': '请求服务器错误',
+  tip: '服务器更新中'
+}
 
 /**
  * @description http请求
@@ -27,11 +37,17 @@ const request = (method, path, options, extend) => {
   } else {
     axios.defaults.baseURL = baseURL
   }
-  // 基本参数
-  if (userCache.getToken()) {
-    axios.defaults.headers.common['token'] = options.token || userCache.getToken()
-  }
-  axios.defaults.timeout = options.timeout || 30000
+
+  // 没有token不执行，返回到登录页
+  let token = userCache.getToken()
+  // if (!token && path !== '/api/v1/system/pub/login') {
+  //   location.href = '#/login'
+  //   return
+  // }
+
+  axios.defaults.headers.common['token'] = options.token || token
+  axios.defaults.timeout = options.timeout || TIMEOUT
+
   let loading = null
   // 是否开启loading
   if (!options.closeLoading) {
@@ -41,18 +57,15 @@ const request = (method, path, options, extend) => {
       text: options.loadingText || '正在加载',
       spinner: 'el-icon-loading iconfont icon-loading',
       background: 'rgba(0,0,0,0)',
-      customClass: 'gb-loading',
+      customClass: 'gb-loading'
     })
   }
   return (async () => {
     try {
       let res
       const responseType = {
-        responseType: options.responseType,
+        responseType: options.responseType
       } || {}
-      if (extend === 'uploadFile') {
-        axios.defaults.headers.common['Content-Type'] = 'multipart/form-data'
-      }
       if (options.data && typeof options.data !== 'object') {
         // RESTful传参
         res = await axios[method](`${path}/${options.data}`)
@@ -67,17 +80,14 @@ const request = (method, path, options, extend) => {
                 // 监听回调
                 options.onUploadProgress(progressEvent)
               }
-            },
+            }
           })
         } else if (extend === 'jsonp') {
           res = await axios[extend](`${axios.defaults.baseURL}${path}?${qs.stringify(data)}`)
         } else {
           switch (method) {
             case 'get':
-              res = await axios[method](path, {
-                params: data,
-                ...responseType,
-              })
+              res = await axios[method](path, { params: data, ...responseType })
               break
             case 'post':
               res = await axios[method](path, data, responseType)
@@ -99,7 +109,7 @@ const request = (method, path, options, extend) => {
         res.data.msg && Message.warning(res.data.msg)
         userCache.clear()
         location.href = '#/login'
-      } else if (res.data && parseInt(res.data.code) !== 0 && res.data.code === 180001) { // 180001校验接口，存在同名，已做表单校验提醒，不需要做
+      } else if (res.data && parseInt(res.data.code) !== 0) {
         Message.closeAll()
         res.data.msg && Message.warning(res.data.msg)
       } else {
@@ -115,13 +125,15 @@ const request = (method, path, options, extend) => {
       if (responseType.responseType) {
         return {
           headers: res.headers,
-          blob: res.data,
+          blob: res.data
         }
       }
       return extend === 'jsonp' ? res : res.data
     } catch (err) {
+      let msg = err.message || ERRORS.tip
+      msg = ERRORS[msg] || msg
       Message.closeAll()
-      Message.error('接口请求错误！')
+      Message({ message: msg, type: 'warning', duration: 2500 })
       loading && loading.close()
     }
   })()
@@ -153,8 +165,8 @@ export default {
   get(path, options) {
     return request('get', path, options)
   },
-  post(path, options, extend) {
-    return request('post', path, options, extend)
+  post(path, options) {
+    return request('post', path, options)
   },
   upload(path, options) {
     return request('post', path, options, 'upload')
@@ -169,16 +181,15 @@ export default {
     return request('delete', path, options)
   },
   ws(path, options) {
-    const socket = io.connect(
-      baseURL
-        .replace(':8081/bms/api', ':30001')
-        .replace(/^(http:\/\/)|\/\/{1}/, 'ws://'), {
-      path,
-      transports: ['websocket'],
-      query: qs.stringify(options.data),
-    }
-    )
-    return socket
+  //  const socket = io.connect(
+  //     baseURL
+  //       .replace(':8081/bms/api', ':30001')
+  //       .replace(/^(http:\/\/)|\/\/{1}/, 'ws://'), {
+  //       path,
+  //       transports: ['websocket'],
+  //       query: qs.stringify(options.data)
+  //     })
+  //   return socket
   },
-  baseURL,
+  baseURL
 }

@@ -12,8 +12,11 @@
       <!--表格-->
       <div slot="TableSlot">
         <!--带操作按钮的列表-->
-        <TableBody :tableData="tableData" :column="columnTitle" :SearchPage="pageInfo.page">
-        </TableBody>
+        <glTable
+          :tableData="tableData"
+          :column="columnTitle"
+          :searchPage="pageInfo.page">
+        </glTable>
       </div>
     </TablePage>
   </div>
@@ -50,6 +53,9 @@
         ]
       }
     },
+    mounted() {
+      console.log(1)
+    },
     methods: {
       // 获取列表数据 - 数组
       getTableData(val) {
@@ -59,11 +65,6 @@
       getTablePageInfo(val) {
         this.pageInfo = val
       }
-    },
-    created() {
-    },
-    mounted() {
-      console.log(1)
     }
   }
 </script>

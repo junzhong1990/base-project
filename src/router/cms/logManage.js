@@ -1,6 +1,5 @@
 // 系统日志列表
-const logManage = () => import('@/views/cms/logManage/logManage')
-
+const logManage = () => import(/* webpackChunkName: "logManage" */ '@/views/cms/logManage/logManage')
 
 export default [
   {
