@@ -262,35 +262,7 @@
             map.setDefaultCursor('default')
           })
         })
-        // 热力图逻辑
-        // if (this.heatMapData.length > 0) {
-        //   map.plugin(['AMap.Heatmap'], function () {
-        //     // 初始化heatmap对象
-        //     that.heatmap = new AMap.Heatmap(map, {
-        //       radius: 25, // 给定半径
-        //       opacity: [0, 0.8]
-        //     })
-        //     that.heatmap.hide()
-        //   })
-        //   let salesArr = this.heatMapData
-        //   let points = []
-        //   let maxNum = 0
-        //   salesArr.forEach((val, index) => {
-        //     let obj = {}
-        //     obj.lng = val.lng
-        //     obj.lat = val.lat
-        //     obj.count = parseFloat(val[this.statisticTime])
-        //     if (obj.count > maxNum) maxNum = obj.count
-        //     points.push(obj)
-        //   })
-        //   this.heatmap.setDataSet({
-        //     max: maxNum,
-        //     data: points
-        //   })
-        //   // console.log(this.heatmap.setMap())
-        //   this.heatmap.setMap(this.map)
-        // }
-        
+
         // 展示路径规划
         if (this.showPath) {
           this.setContextMenu()
