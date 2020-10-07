@@ -21,7 +21,6 @@ import '@/assets/icon' // 图标库
 import AreaTree from '@/components/common/areaCascader/AreaTree'
 // import BaseForm from '@/components/common/baseForm/baseForm'
 import CommonCascader from '@/components/common/commonCascader/CommonCascader'
-import CommonSelect from '@/components/common/commonSelect/CommonSelect'
 import QueryForm from './components/common/queryForm/queryForm'
 import TablePage from '@/components/common/table/TablePage'
 import DetailBox from '@/components/common/detailList/DetailBox'
@@ -52,7 +51,6 @@ Vue.prototype.$ELEMENT = { size: 'middle' }
 
 Vue.component('AreaTree', AreaTree) // 区域树
 Vue.component('CommonCascader', CommonCascader) // 下拉级联选择
-Vue.component('CommonSelect', CommonSelect) // 模态框选择
 Vue.component('QueryForm', QueryForm) // 查询列表
 Vue.component('TablePage', TablePage) // 列表页组件
 Vue.component('DetailBox', DetailBox) // 详情外壳

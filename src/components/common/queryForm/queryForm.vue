@@ -13,7 +13,7 @@
       >
         <el-form-item slot="formButton" class="full-line">
           <el-button type="primary" @click="search">查询</el-button>
-          <el-button @click="resetBaseForm">重置</el-button>
+          <el-button @click="resetBaseForm" class="gl-common-ml">重置</el-button>
         </el-form-item>
       </BaseForm>
     </div>
@@ -33,17 +33,17 @@
         :key="index"
         :label="item.label"
         :prop="item.value"
-        :class="{ 'full-line': item.isFullLine, 'full-line_time': item.isFullLine }"
+        :class="{'full-line': item.isFullLine, 'full-line_time': item.isFullLine}"
       >
         <!-- 站点编号远程搜索 -->
-        <div v-if="item.type=='stationCode'">
-          <span v-show="$route.params.id">{{searchForm.stationCode}}</span>
+        <div v-if="item.type === 'stationCode'">
+          <span v-show="$route.params.id">{{ searchForm.stationCode }}</span>
           <el-select
             v-show="!$route.params.id"
             v-model="searchForm[item.value]"
             :disabled="item.disable"
             :remote-method="remoteMethod"
-            :placeholder="item.placeholder?`${item.placeholder}`:`请输入${item.label}`"
+            :placeholder="item.placeholder ? `${item.placeholder}` : `请输入${item.label}`"
             :loading="loading"
             remote
             filterable
@@ -57,22 +57,35 @@
           </el-select>
         </div>
         <!-- input控件 -->
-        <div v-if="item.type=='text' || item.type=='textarea'">
+        <div v-if="item.type === 'text' || item.type === 'textarea'">
           <el-input
             :type="item.type"
             v-model="searchForm[item.value]"
             :disabled="item.disable"
-            :placeholder="item.placeholder?`${item.placeholder}`:`请输入${item.label}`"
+            :placeholder="item.placeholder ? `${item.placeholder}` : `请输入${item.label}`"
             :maxlength="item.maxlength == undefined ? 20 : item.maxlength"
           >
             <template slot="append" v-if="item.appendText">{{item.appendText}}</template>
           </el-input>
         </div>
+        <div v-if="item.type === 'number'">
+          <el-input
+            type="text"
+            v-model.number="searchForm[item.value]"
+            :disabled="item.disable"
+            :placeholder="item.placeholder ? `${item.placeholder}` : `请输入${item.label}`"
+            :maxlength="item.maxlength == undefined ? 20 : item.maxlength"
+          >
+            <template slot="append" v-if="item.appendText">{{
+              item.appendText
+            }}</template>
+          </el-input>
+        </div>
         <!-- select组件 -->
-        <div v-if="item.type=='select'">
+        <div v-if="item.type === 'select'">
           <el-select
             v-model="searchForm[item.value]"
-            :placeholder="item.placeholder?`${item.placeholder}`:`请选择${item.label}`"
+            :placeholder="item.placeholder ? `${item.placeholder}` : `请选择${item.label}`"
             clearable
             :disabled="item.disable"
             :multiple="item.multiple || false"
@@ -87,7 +100,7 @@
           </el-select>
         </div>
         <!-- datePicker选择组件 -->
-        <div v-if="item.type=='datePicker'">
+        <div v-if="item.type === 'datePicker'">
           <el-date-picker
             v-model="searchForm[item.value]"
             :type="item.format"
@@ -98,80 +111,71 @@
           ></el-date-picker>
         </div>
         <!-- 站点星级组件 -->
-        <div v-if="item.type=='Star'" ref="station_Star">
+        <div v-if="item.type === 'Star'" ref="station_Star">
           <el-rate v-model="searchForm[item.value]"></el-rate>
         </div>
         <!-- radio组件 -->
-        <div v-if="item.type=='radioGroup'">
+        <div v-if="item.type === 'radioGroup'">
           <el-radio-group v-model="searchForm[item.value]">
             <el-radio
               v-for="(type, index) of item.options"
               :key="index"
               :label="type.value"
-            >{{type.text || type.label}}</el-radio>
+            >
+              {{ type.label }}
+            </el-radio>
           </el-radio-group>
         </div>
         <!-- radio组件 -->
-        <div v-if="item.type=='radioButton'">
+        <div v-if="item.type === 'radioButton'">
           <el-radio-group v-model="searchForm[item.value]">
             <el-radio-button
               v-for="(type, index) of item.options"
               :key="index"
               :label="type.value"
-            >{{type.text || type.label}}</el-radio-button>
+            >
+              {{ type.label }}
+            </el-radio-button>
           </el-radio-group>
         </div>
-        <!-- 区域选择组件 -->
-        <div v-if="item.type=='areacascader'">
-          <AreaCascader
-            :disabled="item.disable"
-            ref="as"
-            :stage="item.stage"
-            :level="item.level"
-            :select_any_level_flag="item.select_any_level_flag ? item.select_any_level_flag : false"
-            :show_all_levels="item.show_all_levels == undefined ? true : item.show_all_levels"
-            :ruturnAllLevelResultFlag="item.ruturnAllLevelResultFlag ? item.ruturnAllLevelResultFlag : false"
-            :res="searchForm[item.value]"
-            v-model="searchForm[item.value]"
-            @sendToAreaSelect="areaSelectResult"
-          ></AreaCascader>
-        </div>
-        <div v-if="item.type=='commonCascader'">
+        <div v-if="item.type === 'commonCascader'">
           <CommonCascader
+            ref="commonCascader"
             :select_any_level_flag="item.selectAnyLevelFlag ? item.selectAnyLevelFlag : true"
             :qryObj="qryObjArea"
             :initAreaSelectFlag="initAreaSelectFlag"
             :stage="item.stage || 3"
-            ref="commonCascader"
             @commonSelectResult="commonSelectAreaResult"
           ></CommonCascader>
         </div>
-        <div v-if="item.type=='deptCascader'">
+        <div v-if="item.type === 'deptCascader'">
           <CommonCascader
+            ref="deptCascader"
             :qryObj="qryObjDept"
             :stage="item.stage || 3"
-            ref="deptCascader"
             :res="searchForm.departmentCode"
             valueKey="id"
             @commonSelectResult="selectDptResult"
           ></CommonCascader>
         </div>
-        <div v-if="item.type=='cascader'">
+        <div v-if="item.type === 'cascader'">
           <CommonCascader
-            :item="item"
-            :qryObj="qryObjArea"
-            :stage="item.stage || 3"
             ref="cascader"
+            :item="item"
+            :select_any_level_flag="true"
+            :qryObj="item.qryObj || qryObjArea"
+            :stage="item.stage || 3"
+            :valueKey="item.valueKey || 'code'"
             :res="searchForm[item.value]"
             @commonSelectResult="selectCustomResult($event, item)"
           ></CommonCascader>
         </div>
       </el-form-item>
       <slot name="extend"></slot>
-      <el-form-item label=" " class="full-line">
+      <el-form-item label="" class="full-line">
         <!-- 列表查询组件 -->
         <el-button type="primary" @click="search">查询</el-button>
-        <el-button @click="resetForm" style="margin-left:24px">重置</el-button>
+        <el-button @click="resetForm" class="gl-common-ml">重置</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -291,28 +295,6 @@ export default {
     },
     // 远程搜索站点编号向后台请求
     remoteMethod(query) {
-      // if (query !== '') {
-      //   this.loading = true
-      //   this.postJson('station', {
-      //     apiCode: 300019,
-      //     content: {
-      //       searchKey: query
-      //     }
-      //   }).then(res => {
-      //     if (res.code === '0') {
-      //       this.loading = false
-      //       this.options = res.content.map(v => {
-      //         return {
-      //           label: `${v.station_code}-${v.name_x}`,
-      //           value: v.station_code,
-      //           status: v.station_status
-      //         }
-      //       })
-      //     }
-      //   })
-      // } else {
-      //   this.options = []
-      // }
     },
     // 所属区域结果
     areaSelectResult(val) {
@@ -367,25 +349,19 @@ export default {
           this.searchForm[item.options.value2] = ''
         }
       }
+      this.$emit('getDateResult', this.searchForm)
     },
     async init() {
+      this.eventBus.$off('pagechange')
       this.eventBus.$on('pagechange', (val) => {
         this.confirmSearch.pageInfo.pageNum = val
-        // this.searchForm.pageInfo.pageNum = val
+        this.searchForm.pageInfo.pageNum = val
         this.query()
       })
       if (this.queryApiCode.type !== 'confirmSearchBackQueryMode') {
         // console.log('queryApiCode')
         this.search()
       }
-      // 点击排序，拼接排序的条件进行查询
-      // this.eventBus.$on('sortchange', (obj) => {
-      //   this.confirmSearch.pageInfo = Object.assign(
-      //     this.confirmSearch.pageInfo,
-      //     obj
-      //   )
-      //   this.query()
-      // })
     },
     search() {
       this.confirmSearch = JSON.parse(JSON.stringify(this.searchForm))
@@ -443,12 +419,11 @@ export default {
     },
     // 重置静态表单
     resetForm() {
-      // if (this.$refs.searchForm) {
-      // this.$refs['searchForm'].resetFields()
-      // }
+      if (this.$refs.searchForm) {
+        this.$refs['searchForm'].resetFields()
+      }
       if (this.$refs.commonCascader) {
         this.$refs['commonCascader'].forEach((v) => v.clear())
-        // this.$refs['commonCascader'][0].clear()
       }
       if (this.$refs.cascader) {
         this.$refs['cascader'].forEach((v) => v.clear())
@@ -463,10 +438,7 @@ export default {
     initSearchForm() {
       this.searchForm = this.initSearchParam()
       // 判断是否存在sysModule参数
-      if (
-        this.queryApiCode.sysModule !== undefined &&
-        this.queryApiCode.sysModule !== ''
-      ) {
+      if (this.queryApiCode.sysModule) {
         this.searchForm.sysModule = this.queryApiCode.sysModule
       }
       // 父组件额外传参
@@ -487,7 +459,7 @@ export default {
     },
     // 设置分页
     setPageParams(obj) {
-      this.searchForm.pageInfo = {...this.searchForm.pageInfo, ...obj}
+      this.searchForm.pageInfo = { ...this.searchForm.pageInfo, ...obj }
     },
     // 获取表单模板
     async getActDeModelDetails() {
@@ -499,7 +471,7 @@ export default {
       // console.log(this.queryApiCode.resourceCode,data)
       let id = data && data.formId
       if (id) {
-        let res = await this.$api.flowFormDetail({ data: {} })
+        const res = await this.$api.flowFormDetail({ data: { id: Number(id) } })
         // console.log(res)
         if (res && res.code === 0) {
           let groupList = res.data.actDeGroupList
@@ -509,7 +481,6 @@ export default {
           groupList.forEach((val, i) => {
             val.actDeModelFormList.forEach(async (valItem, iItem) => {
               valItem.title = valItem.name
-              // valItem.type = valItem.type
               valItem.prop = valItem.field
               valItem.vavalItemlue = ''
               // console.log('获取查询表单数据', valItem)
@@ -518,7 +489,7 @@ export default {
                 valItem.options = this.$store.state.dicStore[valItem.sourceData]
               } else if (valItem.source === 'url') {
                 // 从接口获取
-                let res_data = await this.$api.getsSurceData({
+                const res_data = await this.$api.getSourceData({
                   url: valItem.sourceData
                 })
                 if (res_data.code === 0) {
@@ -534,11 +505,11 @@ export default {
                   : []
               }
               // 设置校验规则
-              if (valItem.required === true || valItem.fieldQualification) {
+              if (valItem.required || valItem.fieldQualification) {
                 this.$set(rulesRes, valItem.field, {})
               }
               // 如果是双下拉框的形式，必填规则需特殊处理
-              if (valItem.required === true) {
+              if (valItem.required) {
                 this.$set(rulesRes[valItem.field], 'required', true)
                 this.$set(rulesRes[valItem.field], 'trigger', [
                   'change',
@@ -619,7 +590,7 @@ export default {
       return {
         pageInfo: {
           pageNum: 1,
-          pageSize: 10
+          pageSize: 20
         }
       }
     }
