@@ -19,7 +19,7 @@ const ERRORS = {
   [`timeout of ${TIMEOUT}ms exceeded`]: '请求超时，服务器未响应',
   'Internal Server Error': '请求服务器错误',
   'Request failed with status code 502': '请求服务器错误',
-  tip: '服务器更新中'
+  tip: '系统正在维护，请稍后再试试'
 }
 
 /**

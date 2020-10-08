@@ -1,50 +1,60 @@
-const CryptoJS = require('crypto-js') // 引用AES源码js
+const CryptoJS = require('crypto-js')
 
-// 默认的 KEY 与 iv 如果没有给
-const KEY = CryptoJS.enc.Utf8.parse('VLT0202003031710')
-const IV = CryptoJS.enc.Utf8.parse('1234567890123456')
+const KEY = '1234567890'
+const IV = '99999999'
+
 /**
- * AES加密 ：字符串 key iv  返回base64
- * */
-export function Encrypt(word, keyStr, ivStr) {
-  let key = KEY
-  let iv = IV
-
-  if (keyStr) {
-    key = CryptoJS.enc.Utf8.parse(keyStr)
-    iv = CryptoJS.enc.Utf8.parse(ivStr)
-  }
-
-  const srcs = CryptoJS.enc.Utf8.parse(word)
-  var encrypted = CryptoJS.AES.encrypt(srcs, key, {
-    iv: iv,
-    mode: CryptoJS.mode.CBC,
-    padding: CryptoJS.pad.ZeroPadding,
+ * @desc AES加密
+ * @param {String} msg 加密信息
+ */
+export function aesEncrypt(msg) {
+  const keyHex = CryptoJS.enc.Utf8.parse(KEY)
+  const srcs = CryptoJS.enc.Utf8.parse(msg)
+  const encrypted = CryptoJS.AES.encrypt(srcs, keyHex, {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7
   })
-  // console.log("-=-=-=-", encrypted.ciphertext)
+  return encrypted.toString()
+}
+
+/**
+ * @desc AES解密
+ * @param {String} msg 解密信息
+ */
+export function aesDecrypt(msg) {
+  const keyHex = CryptoJS.enc.Utf8.parse(KEY)
+  const decrypt = CryptoJS.AES.decrypt(msg, keyHex, {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7
+  })
+  return CryptoJS.enc.Utf8.stringify(decrypt).toString()
+}
+
+
+/**
+ * @desc AES加密：字符串 key iv  返回base64 
+ */
+export const Encrypt = (msg, keyStr = KEY, ivStr = IV) => {
+  const keyHex = CryptoJS.enc.Utf8.parse(keyStr)
+  const srcs = CryptoJS.enc.Utf8.parse(msg)
+  const encrypted = CryptoJS.AES.encrypt(srcs, keyHex, {
+    iv: CryptoJS.enc.Utf8.parse(ivStr),
+    mode: CryptoJS.mode.CBC,
+    padding: CryptoJS.pad.ZeroPadding
+  })
   return CryptoJS.enc.Base64.stringify(encrypted.ciphertext)
 }
+
 /**
- * AES 解密 ：字符串 key iv  返回base64
- * **/
-export function Decrypt(word, keyStr, ivStr) {
-  let key = KEY
-  let iv = IV
-
-  if (keyStr) {
-    key = CryptoJS.enc.Utf8.parse(keyStr)
-    iv = CryptoJS.enc.Utf8.parse(ivStr)
-  }
-
-  const base64 = CryptoJS.enc.Base64.parse(word)
-  const src = CryptoJS.enc.Base64.stringify(base64)
-
-  var decrypt = CryptoJS.AES.decrypt(src, key, {
-    iv: iv,
+ * @desc AES解密：字符串 key iv  返回base64 
+ */
+export const Decrypt = (msg, keyStr = KEY, ivStr = IV) => {
+  const keyHex = CryptoJS.enc.Utf8.parse(keyStr)
+  const srcs = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Base64.parse(msg))
+  const decrypted = CryptoJS.AES.decrypt(srcs, keyHex, {
+    iv: CryptoJS.enc.Utf8.parse(ivStr),
     mode: CryptoJS.mode.CBC,
-    padding: CryptoJS.pad.ZeroPadding,
+    padding: CryptoJS.pad.ZeroPadding
   })
-
-  var decryptedStr = decrypt.toString(CryptoJS.enc.Utf8)
-  return decryptedStr.toString()
+  return decrypted.toString(CryptoJS.enc.Utf8).toString()
 }
