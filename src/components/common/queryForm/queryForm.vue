@@ -41,7 +41,7 @@
           <el-select
             v-show="!$route.params.id"
             v-model="searchForm[item.value]"
-            :disabled="item.disable"
+            :disabled="item.disabled"
             :remote-method="remoteMethod"
             :placeholder="item.placeholder ? `${item.placeholder}` : `请输入${item.label}`"
             :loading="loading"
@@ -61,7 +61,7 @@
           <el-input
             :type="item.type"
             v-model="searchForm[item.value]"
-            :disabled="item.disable"
+            :disabled="item.disabled"
             :placeholder="item.placeholder ? `${item.placeholder}` : `请输入${item.label}`"
             :maxlength="item.maxlength == undefined ? 20 : item.maxlength"
           >
@@ -72,7 +72,7 @@
           <el-input
             type="text"
             v-model.number="searchForm[item.value]"
-            :disabled="item.disable"
+            :disabled="item.disabled"
             :placeholder="item.placeholder ? `${item.placeholder}` : `请输入${item.label}`"
             :maxlength="item.maxlength == undefined ? 20 : item.maxlength"
           >
@@ -87,7 +87,7 @@
             v-model="searchForm[item.value]"
             :placeholder="item.placeholder ? `${item.placeholder}` : `请选择${item.label}`"
             clearable
-            :disabled="item.disable"
+            :disabled="item.disabled"
             :multiple="item.multiple || false"
             @change="selectChange($event, item)"
           >
